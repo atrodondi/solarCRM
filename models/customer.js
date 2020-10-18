@@ -10,7 +10,10 @@ const customerSchema = new Schema({
   pgeAN: { type: String },
   pgeSID: { type: String },
   pgeMeter: { type: String },
+  pgeRate: { type: String },
   equipment: [String],
+  lead: { type: Boolean, default: true },
+  won: { type: Boolean, default: false },
   notes: [
     {
       type: Schema.Types.ObjectId,
