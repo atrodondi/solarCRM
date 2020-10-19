@@ -3,7 +3,7 @@ module.exports = {
 
   customerNotes: require("./customerNotes"),
 
-  activeProjects: require("./activeProjects"),
+  projects: require("./projects"),
 
   projectNotes: require("./projectNotes"),
 
