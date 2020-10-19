@@ -15,5 +15,14 @@ module.exports = {
       .find({})
       .then(dbProjs => res.json(dbProjs))
       .catch(err => res.status(422).json(err));
+  },
+
+  //   find project by id
+  findProjectById: function (req, res) {
+    db.projects
+      .findById(req.params.projectId)
+      .populate("client")
+      .then(dbProject => res.json(dbProject))
+      .catch(err => res.status(422).json(err));
   }
 };
