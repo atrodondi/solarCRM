@@ -6,6 +6,7 @@ const projectsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Customer"
   },
+  status: { type: String },
   contractSignDate: { type: String },
   contractTotal: { type: Number },
   deposit: { type: String },
