@@ -5,4 +5,10 @@
   color: black;
   margin: auto;
   font-size: small;
+  margin-top: 10px;
+  box-shadow: black;
+}
+
+h4 {
+  color: #e1b12c;
 }

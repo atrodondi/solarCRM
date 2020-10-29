@@ -22,4 +22,5 @@
   display: flex;
   color: black;
   margin-top: 5px;
+  flex-wrap: wrap;
 }
