@@ -2,4 +2,7 @@
   width: 100px;
   height: 100px;
   background-color: teal;
+  color: black;
+  margin: auto;
+  font-size: small;
 }

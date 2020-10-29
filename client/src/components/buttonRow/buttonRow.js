@@ -6,7 +6,7 @@ export default function buttonRow(props) {
   return (
     <>
       <div className="row">
-        <ContactBtn></ContactBtn>
+        <ContactBtn getContacts={props.getContacts}></ContactBtn>
       </div>
     </>
   );

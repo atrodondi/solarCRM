@@ -4,7 +4,9 @@ import "./style.css";
 export default function contactBtn(props) {
   return (
     <>
-      <button className="button">Contacts</button>
+      <button className="button" onClick={props.getContacts}>
+        Contacts
+      </button>
     </>
   );
 }
