@@ -25,4 +25,27 @@ module.exports = {
       .then((dbResources) => res.json(dbResources))
       .catch((err) => res.status(422).json(err));
   },
+
+  // search by name, sort by last name
+  searchByName: function (req, res) {
+    let searchQuery = req.params.query;
+    console.log("params yo-->", searchQuery);
+    db.customer
+      // .aggregate([
+      //   {
+      //     $match: {
+      //       lastName: {
+      //         $regex: searchQuery,
+      //         $options: "i",
+      //       },
+      //     },
+      //   },
+      // ])
+      .find({ $text: { $search: searchQuery } })
+      .then((result) => {
+        console.log(result);
+        res.json(result);
+      })
+      .catch((err) => res.status(422).json(err));
+  },
 };

@@ -10,4 +10,7 @@ router.route("/delete/:customerId").get(customerController.deleteCustomerById);
 //find all customers
 router.route("/").get(customerController.findAllCustomers);
 
+// search customers by name, sort by last name ascending
+router.route("/searchByName/:query").get(customerController.searchByName);
+
 module.exports = router;

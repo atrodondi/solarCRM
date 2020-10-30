@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstName: { type: String, required: true, index: true },
+  lastName: { type: String, required: true, index: true },
   email: { type: String, required: true, index: { unique: true } },
   phone: { type: String, required: true },
   addressStreet: { type: String, required: true, index: { unique: true } },
   addressNumber: { type: String },
-  addressCity: { type: String },
+  addressCity: { type: String, index: true },
   addressState: { type: String, default: "CA" },
   addressZipcode: { type: String },
   pgeAN: { type: String },
@@ -31,28 +31,34 @@ const customerSchema = new Schema({
     soldBatteryMake: { type: String },
     soldBatterySerial: { type: String },
     soldBatteryAmt: { type: String },
-    connectionType: { type: String, default: "zigbee" }
+    connectionType: { type: String, default: "zigbee" },
   },
   lead: { type: Boolean, default: true },
   won: { type: Boolean, default: false },
   notes: [
     {
       type: Schema.Types.ObjectId,
-      ref: "CustomerNotes"
-    }
+      ref: "CustomerNotes",
+    },
   ],
   activeProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: "ActiveProjects"
-    }
+      ref: "ActiveProjects",
+    },
   ],
   completedProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: "CompletedProjects"
-    }
-  ]
+      ref: "CompletedProjects",
+    },
+  ],
+});
+
+customerSchema.index({
+  firstName: "text",
+  lastName: "text",
+  addressCity: "text",
 });
 
 const customer = mongoose.model("Customer", customerSchema);
