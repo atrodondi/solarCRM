@@ -10,4 +10,9 @@ export default {
   findAllCustomers: function () {
     return axios.get("/customer");
   },
+
+  //search contacts by name
+  searchContactsByName: function (query) {
+    return axios.get("/customer/searchByName/" + query);
+  },
 };

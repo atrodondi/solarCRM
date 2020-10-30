@@ -17,7 +17,7 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
-  // Find all customers
+  // Find all customers and sort by lastname
   findAllCustomers: function (req, res) {
     db.customer
       .find({})
@@ -31,17 +31,13 @@ module.exports = {
     let searchQuery = req.params.query;
     console.log("params yo-->", searchQuery);
     db.customer
-      // .aggregate([
-      //   {
-      //     $match: {
-      //       lastName: {
-      //         $regex: searchQuery,
-      //         $options: "i",
-      //       },
-      //     },
-      //   },
-      // ])
-      .find({ $text: { $search: searchQuery } })
+      .find({
+        $or: [
+          { lastName: { $regex: searchQuery, $options: "i" } },
+          { firstName: { $regex: searchQuery, $options: "i" } },
+          { addressCity: { $regex: searchQuery, $options: "i" } }, //partial text search so entire name isnt required to find a match, searches those keys, i.e. last name, first name or whatever you add,
+        ],
+      })
       .then((result) => {
         console.log(result);
         res.json(result);

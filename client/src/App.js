@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import ButtonRow from "./components/buttonRow/buttonRow";
 import ContactCard from "./components/contactCard/contactcard";
+import ContactSearchBar from "./components/contactsSearchBar/contactsSearchBar";
 import API from "./util/API";
 
 export default function App(props) {
@@ -14,15 +15,24 @@ export default function App(props) {
       console.log("contacts: ", res.data);
       setContent(res.data);
     });
-    // setContent([2, 3, 4, 5, 6, 7, 8]);
     console.log(content);
   };
 
+  // search contacts by name
+  const searchContacts = (query) => {
+    API.searchContactsByName(query).then((res) => {
+      console.log("contact search results", res.data);
+      setContent(res.data);
+    });
+  };
+
+  //render
   return (
     <div className="App">
       <div className="App-header">
         <h2>Solar CRM trial 1</h2>
         <ButtonRow getContacts={getContacts}></ButtonRow>
+        <ContactSearchBar searchContacts={searchContacts}></ContactSearchBar>
       </div>
       <div className="container">
         {content.map((contact) => (
