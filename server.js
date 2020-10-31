@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
@@ -17,10 +18,10 @@ if (process.env.NODE_ENV === "production") {
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/solarCRM", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(console.log("connected to MongoDB successfully, full send baby!!"))
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
 // Define API routes here
