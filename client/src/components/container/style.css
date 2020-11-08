@@ -1,4 +1,5 @@
 .container {
   display: flex;
   color: black;
+  flex-wrap: wrap;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import AddContactModal from "./components/addContactModal/addContactModal";
 import ButtonRow from "./components/buttonRow/buttonRow";
 import ContactCard from "./components/contactCard/contactcard";
 import ContactSearchBar from "./components/contactsSearchBar/contactsSearchBar";
@@ -7,6 +8,13 @@ import API from "./util/API";
 
 export default function App(props) {
   const [content, setContent] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+
+  //function to open modal
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
   // gets all contacts when contact button is pressed
   const getContacts = () => {
@@ -31,9 +39,14 @@ export default function App(props) {
     <div className="App">
       <div className="App-header">
         <h2>Solar CRM trial 1</h2>
-        <ButtonRow getContacts={getContacts}></ButtonRow>
+        <ButtonRow
+          getContacts={getContacts}
+          openModal={openModal}
+          setShowModal={setShowModal}
+        ></ButtonRow>
         <ContactSearchBar searchContacts={searchContacts}></ContactSearchBar>
       </div>
+      <AddContactModal showModal={showModal}></AddContactModal>
       <div className="container">
         {content.map((contact) => (
           <ContactCard

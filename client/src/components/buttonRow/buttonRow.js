@@ -8,7 +8,10 @@ export default function buttonRow(props) {
     <>
       <div className="row">
         <ContactBtn getContacts={props.getContacts}></ContactBtn>
-        <AddNewContactBtn></AddNewContactBtn>
+        <AddNewContactBtn
+          setShowModal={props.setShowModal}
+          openModal={props.openModal}
+        ></AddNewContactBtn>
       </div>
     </>
   );

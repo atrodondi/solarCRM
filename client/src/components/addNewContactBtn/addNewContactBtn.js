@@ -4,16 +4,9 @@ import "./style.css";
 export default function addNewContactButton(props) {
   return (
     <>
-      <button>Add New </button>
-      {/* <modal>
-        <form>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </modal> */}
+      <button setShowModal={props.setShowModal} onClick={props.openModal}>
+        Add New Contact{" "}
+      </button>
     </>
   );
 }

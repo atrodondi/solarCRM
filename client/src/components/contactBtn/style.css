@@ -1,6 +1,11 @@
-.button {
-  color: red;
-  background-color: blanchedalmond;
-  height: 30px;
-  width: 120px;
+button {
+  min-width: 100px;
+  padding: 16px 32px;
+  border-radius: 4px;
+  border: none;
+  background: #141414;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 5px 0 5px;
 }
