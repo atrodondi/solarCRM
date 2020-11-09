@@ -5,7 +5,7 @@ module.exports = {
   createCustomer: function (req, res) {
     db.customer
       .create(req.body)
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) => res.json({id:dbModel._id}))
       .catch((err) => res.status(422).json(err));
   },
 

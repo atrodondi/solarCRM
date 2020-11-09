@@ -31,7 +31,7 @@ export default function contactSearchBar(props) {
             name="name"
             value={query}
             onChange={handleChange}
-            autocomplete="off"
+            autoComplete="off"
           />
         </label>
         <input type="submit" value="Submit" />

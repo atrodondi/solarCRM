@@ -5,8 +5,8 @@ export default function AddContactForm(props) {
     <>
       <form>
         <label>
-          Name:
-          <input type="text" name="name" autocomplete="off" />
+          First Name:
+          <input type="text" name="name" value={props.firstName} autocomplete="off" />
         </label>
         <input type="submit" value="Submit" />
       </form>

@@ -15,4 +15,9 @@ export default {
   searchContactsByName: function (query) {
     return axios.get("/customer/searchByName/" + query);
   },
+
+  // add customer note
+  addCustNote: function (note) {
+    return axios.post("/customerNotes/createNewCustNote",note)
+  }
 };

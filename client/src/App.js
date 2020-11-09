@@ -46,7 +46,7 @@ export default function App(props) {
         ></ButtonRow>
         <ContactSearchBar searchContacts={searchContacts}></ContactSearchBar>
       </div>
-      <AddContactModal showModal={showModal}></AddContactModal>
+      <AddContactModal showModal={showModal} setShowModal={setShowModal} openModal={openModal}></AddContactModal>
       <div className="container">
         {content.map((contact) => (
           <ContactCard
