@@ -2,6 +2,8 @@ import React from "react";
 import "./style.css";
 import ContactBtn from "../contactBtn/contactBtn";
 import AddNewContactBtn from "../addNewContactBtn/addNewContactBtn";
+import AddProjectBtn from "../addProjectBtn/addProjectBtn";
+import ContactsSearchBar from "../contactsSearchBar/contactsSearchBar"
 
 export default function buttonRow(props) {
   return (
@@ -12,6 +14,8 @@ export default function buttonRow(props) {
           setShowModal={props.setShowModal}
           openModal={props.openModal}
         ></AddNewContactBtn>
+        <ContactsSearchBar searchContacts={props.searchContacts}></ContactsSearchBar>
+        <AddProjectBtn></AddProjectBtn>
       </div>
     </>
   );

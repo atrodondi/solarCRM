@@ -4,7 +4,7 @@ import "./style.css";
 export default function addNewContactButton(props) {
   return (
     <>
-      <button onClick={props.openModal}>
+      <button className ="addNew"onClick={props.openModal}>
         Add New Contact{" "}
       </button>
     </>

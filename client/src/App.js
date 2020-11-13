@@ -38,13 +38,13 @@ export default function App(props) {
   return (
     <div className="App">
       <div className="App-header">
-        <h2>Solar CRM trial 1</h2>
         <ButtonRow
           getContacts={getContacts}
           openModal={openModal}
           setShowModal={setShowModal}
+          searchContacts={searchContacts}
         ></ButtonRow>
-        <ContactSearchBar searchContacts={searchContacts}></ContactSearchBar>
+        
       </div>
       <AddContactModal showModal={showModal} setShowModal={setShowModal} openModal={openModal}></AddContactModal>
       <div className="container">

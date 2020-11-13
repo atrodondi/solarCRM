@@ -5,7 +5,16 @@ module.exports = {
   newProject: function (req, res) {
     db.projects
       .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        console.log(dbModel)
+        return db.customer.findOneAndUpdate(
+          { _id: dbModel.client},
+          { $push: { activeProjects: dbModel._id } },
+          { new: true }
+        );
+      }).then(dbUser=>{
+        res.json(dbUser)
+      })
       .catch(err => res.status(422).json(err));
   },
 

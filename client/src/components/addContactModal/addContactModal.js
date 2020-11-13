@@ -77,13 +77,16 @@ setNewContact(
 
 
 
-// what to render
+// what to render to dom
   return props.showModal ? (
     <div className="modalWrapper">
       <div className="modal">
         <button className="closeButton" onClick={props.openModal}>&#10006;</button>
         {/*&#10006; is unicode for cool looking x for close button  */}
+        <br />
+        <br />
         <div className="formContainer">
+          
         <form>
         <label>
           First Name:
