@@ -63,7 +63,6 @@ export default function App(props) {
           searchContacts={searchContacts}
           openProjModal={openProjModal}
           setShowProjModal={setShowProjModal}
-          clients={clients}
         ></ButtonRow>
       </div>
       <AddContactModal
@@ -78,6 +77,8 @@ export default function App(props) {
         showProjModal={showProjModal}
         getContacts={getContacts}
         content={content}
+        getClients={getClients}
+        clients={clients}
       ></AddProjModal>
       <div className='container'>
         {content.map(contact => (

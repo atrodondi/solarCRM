@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './addProjModal.css';
-import API from '../../util/API';
 
 export default function addProjModal(props) {
+  // clients
   // new project state
   const [NewProject, setNewProject] = useState({
     client: '',
@@ -26,6 +26,11 @@ export default function addProjModal(props) {
     setNewProject(state => ({ ...state, [name]: value }));
   };
 
+  //   GET CLientS when component mounts
+  useEffect(() => {
+    props.getClients();
+  });
+
   return props.showProjModal ? (
     <div className='modalWrapper'>
       <div className='modal'>
@@ -45,7 +50,7 @@ export default function addProjModal(props) {
                 onChange={handleInputChange}
               >
                 {/* map out options */}
-                {props.content.map(contact => (
+                {props.clients.map(contact => (
                   <option
                     value={contact.lastName + ' ' + contact.lastName}
                     key={contact._id}
