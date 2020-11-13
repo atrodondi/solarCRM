@@ -27,3 +27,19 @@
   margin-top: 5px;
   flex-wrap: wrap;
 }
+
+/* put all close buttons in here so i only have to write the styles once */
+.closeButton {
+  position: relative;
+  float: right;
+  background: transparent;
+  color: black;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  z-index: 10;
+  right: 20px;
+  top: 5px;
+  font-size: larger;
+}

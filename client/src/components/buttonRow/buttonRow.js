@@ -17,7 +17,10 @@ export default function buttonRow(props) {
         <ContactsSearchBar
           searchContacts={props.searchContacts}
         ></ContactsSearchBar>
-        <AddProjectBtn></AddProjectBtn>
+        <AddProjectBtn
+          openProjModal={props.openProjModal}
+          clients={props.clients}
+        ></AddProjectBtn>
       </div>
     </>
   );
