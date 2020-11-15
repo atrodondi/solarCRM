@@ -13,16 +13,16 @@ export default function AddContactModal(props) {
     county: '',
     phone: '',
     email: '',
-    openingNotes: '',
+    openingNotes: ''
   });
 
   // handle change of input value
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value } = e.target;
-    setNewContact((state) => ({ ...state, [name]: value }));
+    setNewContact(state => ({ ...state, [name]: value }));
   };
   // handles the clicking of the submit button on add contact form
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     let contact = {
       firstName: newContact.firstName,
@@ -32,14 +32,14 @@ export default function AddContactModal(props) {
       addressCounty: newContact.county,
       addressZipcode: newContact.zipcode,
       phone: newContact.phone,
-      email: newContact.email,
+      email: newContact.email
     };
-    API.addCustomer(contact).then((result) => {
+    API.addCustomer(contact).then(result => {
       console.log(result);
       // need to take the id and now add the opening note as a note and attach it to the new customer
       let newNote = {
         note: newContact.openingNotes,
-        customer: result.data.id,
+        customer: result.data.id
       };
       // creating a new customer note
       API.addCustNote(newNote).then((result, err) => {
@@ -57,10 +57,11 @@ export default function AddContactModal(props) {
             county: '',
             phone: '',
             email: '',
-            openingNotes: '',
+            openingNotes: ''
           });
           //close the modal
-          props.setShowModal(false);
+          props.openModal();
+          props.getContacts();
         }
       });
     });

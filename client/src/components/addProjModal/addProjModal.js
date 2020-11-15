@@ -29,7 +29,7 @@ export default function addProjModal(props) {
   //   GET CLientS when component mounts
   useEffect(() => {
     props.getClients();
-  });
+  }, []);
 
   return props.showProjModal ? (
     <div className='modalWrapper'>
@@ -52,11 +52,11 @@ export default function addProjModal(props) {
                 {/* map out options */}
                 {props.clients.map(contact => (
                   <option
-                    value={contact.lastName + ' ' + contact.lastName}
                     key={contact._id}
                     id={contact._id}
+                    value={contact._id}
                   >
-                    {contact.lastName + ', ' + contact.lastName}
+                    {contact.lastName + ', ' + contact.firstName}
                   </option>
                 ))}
               </select>

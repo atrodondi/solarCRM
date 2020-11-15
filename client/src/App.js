@@ -7,12 +7,16 @@ import API from './util/API';
 import AddProjModal from './components/addProjModal/addProjModal';
 
 export default function App(props) {
+  //setting content of main div of app (which is dashboard kind of thing for now)
   const [content, setContent] = useState([]);
 
+  //array of all clients in db
   const [clients, setClients] = useState([]);
 
+  //state of showing the add contact modal
   const [showModal, setShowModal] = useState(false);
 
+  // state of showing the add project modal
   const [showProjModal, setShowProjModal] = useState(false);
 
   //function to open add contact modal
@@ -26,28 +30,23 @@ export default function App(props) {
     getClients();
   };
 
-  // gets all contacts when contact button is pressed
+  // gets all contacts when contact button is pressed and showing it in main content div
   const getContacts = () => {
-    console.log('click');
     API.findAllCustomers().then(res => {
-      console.log('contacts: ', res.data);
       setContent(res.data);
     });
-    console.log(content);
   };
 
   // get clients when adding project
   const getClients = () => {
     API.findAllCustomers().then(res => {
       setClients(res.data);
-      console.log(res.data);
     });
   };
 
   // search contacts by name
   const searchContacts = query => {
     API.searchContactsByName(query).then(res => {
-      console.log('contact search results', res.data);
       setContent(res.data);
     });
   };
@@ -70,6 +69,8 @@ export default function App(props) {
         showModal={showModal}
         setShowModal={setShowModal}
         openModal={openModal}
+        setClients={setClients}
+        setContent={setContent}
       ></AddContactModal>
       <AddProjModal
         openProjModal={openProjModal}

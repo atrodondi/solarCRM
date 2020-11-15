@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
   firstName: { type: String, required: true, index: true },
   lastName: { type: String, required: true, index: true },
-  email: { type: String,  index: { unique: true } },
+  email: { type: String, index: { unique: true } },
   phone: { type: String, required: true },
   addressStreet: { type: String, required: true, index: { unique: true } },
   addressCity: { type: String, index: true },
-  addressState: { type: String, default: "CA" },
+  addressState: { type: String, default: 'CA' },
   addressZipcode: { type: String },
-  addressCounty:{type:String},
+  addressCounty: { type: String },
   pgeAN: { type: String },
   pgeSID: { type: String },
   pgeMeter: { type: String },
@@ -26,41 +26,41 @@ const customerSchema = new Schema({
     soldInverterModel: { type: String },
     soldInverterAmt: { type: String },
     soldInverterMake: { type: String },
-    soldInverterSerial: [String],
+    soldInverterSerial: { type: String },
     soldBatteryModel: { type: String },
     soldBatteryMake: { type: String },
     soldBatterySerial: { type: String },
     soldBatteryAmt: { type: String },
-    connectionType: { type: String, default: "zigbee" },
+    connectionType: { type: String, default: 'zigbee' }
   },
   lead: { type: Boolean, default: true },
   won: { type: Boolean, default: false },
   notes: [
     {
       type: Schema.Types.ObjectId,
-      ref: "CustomerNotes",
-    },
+      ref: 'CustomerNotes'
+    }
   ],
   activeProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: "ActiveProjects",
-    },
+      ref: 'ActiveProjects'
+    }
   ],
   completedProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: "CompletedProjects",
-    },
-  ],
+      ref: 'CompletedProjects'
+    }
+  ]
 });
 
 customerSchema.index({
-  firstName: "text",
-  lastName: "text",
-  addressCity: "text",
+  firstName: 'text',
+  lastName: 'text',
+  addressCity: 'text'
 });
 
-const customer = mongoose.model("Customer", customerSchema);
+const customer = mongoose.model('Customer', customerSchema);
 
 module.exports = customer;
