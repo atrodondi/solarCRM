@@ -283,6 +283,7 @@ export default function addProjModal(props) {
             <br />
             <br />
             <br />
+
             <label>
               Opening Notes:
               <br />

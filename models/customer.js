@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
+  type: { type: String, default: 'contact' },
   firstName: { type: String, required: true, index: true },
   lastName: { type: String, required: true, index: true },
   email: { type: String, index: { unique: true } },
@@ -31,34 +32,34 @@ const customerSchema = new Schema({
     soldBatteryMake: { type: String },
     soldBatterySerial: { type: String },
     soldBatteryAmt: { type: String },
-    connectionType: { type: String, default: 'zigbee' }
+    connectionType: { type: String, default: 'zigbee' },
   },
   lead: { type: Boolean, default: true },
   won: { type: Boolean, default: false },
   notes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'CustomerNotes'
-    }
+      ref: 'CustomerNotes',
+    },
   ],
   activeProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'ActiveProjects'
-    }
+      ref: 'ActiveProjects',
+    },
   ],
   completedProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'CompletedProjects'
-    }
-  ]
+      ref: 'CompletedProjects',
+    },
+  ],
 });
 
 customerSchema.index({
   firstName: 'text',
   lastName: 'text',
-  addressCity: 'text'
+  addressCity: 'text',
 });
 
 const customer = mongoose.model('Customer', customerSchema);

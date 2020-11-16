@@ -5,6 +5,8 @@ import ButtonRow from './components/buttonRow/buttonRow';
 import ContactCard from './components/contactCard/contactcard';
 import API from './util/API';
 import AddProjModal from './components/addProjModal/addProjModal';
+import ProjectCard from './components/projectCard/projectCard';
+import { set } from 'mongoose';
 
 export default function App(props) {
   //setting content of main div of app (which is dashboard kind of thing for now)
@@ -21,32 +23,41 @@ export default function App(props) {
 
   //function to open add contact modal
   const openModal = () => {
-    setShowModal(prev => !prev);
+    setShowModal((prev) => !prev);
   };
 
   // function to open new project modal
   const openProjModal = () => {
-    setShowProjModal(prev => !prev);
+    setShowProjModal((prev) => !prev);
     getClients();
   };
 
   // gets all contacts when contact button is pressed and showing it in main content div
   const getContacts = () => {
-    API.findAllCustomers().then(res => {
+    setContent([]);
+    API.findAllCustomers().then((res) => {
       setContent(res.data);
     });
   };
 
-  // get clients when adding project
+  // get clients when adding a project, or just so we can call it upon mount to have an updated client list at all times
   const getClients = () => {
-    API.findAllCustomers().then(res => {
+    API.findAllCustomers().then((res) => {
       setClients(res.data);
     });
   };
 
   // search contacts by name
-  const searchContacts = query => {
-    API.searchContactsByName(query).then(res => {
+  const searchContacts = (query) => {
+    API.searchContactsByName(query).then((res) => {
+      setContent(res.data);
+    });
+  };
+
+  //get all projects and put in main content div (all projeects btn press)
+  const getProjects = () => {
+    setContent([]);
+    API.findAllProjects().then((res) => {
       setContent(res.data);
     });
   };
@@ -62,6 +73,7 @@ export default function App(props) {
           searchContacts={searchContacts}
           openProjModal={openProjModal}
           setShowProjModal={setShowProjModal}
+          getProjects={getProjects}
         ></ButtonRow>
       </div>
       <AddContactModal
@@ -82,15 +94,27 @@ export default function App(props) {
         clients={clients}
       ></AddProjModal>
       <div className='container'>
-        {content.map(contact => (
-          <ContactCard
-            key={contact._id}
-            id={contact._id}
-            firstName={contact.firstName}
-            lastName={contact.lastName}
-            city={contact.addressCity}
-          />
-        ))}
+        {content.map((contact) => {
+          if (contact.type === 'customer') {
+            return (
+              <ContactCard
+                key={contact._id}
+                id={contact._id}
+                firstName={contact.firstName}
+                lastName={contact.lastName}
+                city={contact.addressCity}
+              />
+            );
+          } else if (contact.type === 'project') {
+            return (
+              <ProjectCard
+                key={contact._id}
+                id={contact._id}
+                lastName={contact.client.lastName}
+              />
+            );
+          }
+        })}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import ContactBtn from '../contactBtn/contactBtn';
 import AddNewContactBtn from '../addNewContactBtn/addNewContactBtn';
 import AddProjectBtn from '../addProjectBtn/addProjectBtn';
 import ContactsSearchBar from '../contactsSearchBar/contactsSearchBar';
+import AllProjectsBtn from '../allProjectsBtn/allProjectsBtn';
 
 export default function buttonRow(props) {
   return (
@@ -21,6 +22,7 @@ export default function buttonRow(props) {
           openProjModal={props.openProjModal}
           clients={props.clients}
         ></AddProjectBtn>
+        <AllProjectsBtn getProjects={props.getProjects}></AllProjectsBtn>
       </div>
     </>
   );
