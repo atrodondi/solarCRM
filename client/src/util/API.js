@@ -30,4 +30,9 @@ export default {
   addProjNote: function (newProjNote) {
     return axios.post('/projectNotes/createNew', newProjNote);
   },
+
+  //find all projects
+  findAllProjects: function () {
+    return axios.get('/project');
+  },
 };

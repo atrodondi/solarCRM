@@ -24,6 +24,8 @@ module.exports = {
   findAllProjects: function (req, res) {
     db.projects
       .find({})
+      .populate('notes')
+      .populate('client')
       .then((dbProjs) => res.json(dbProjs))
       .catch((err) => res.status(422).json(err));
   },

@@ -21,6 +21,7 @@ module.exports = {
   findAllCustomers: function (req, res) {
     db.customer
       .find({})
+      .populate('notes')
       .sort({ lastName: '1' })
       .then((dbResources) => res.json(dbResources))
       .catch((err) => res.status(422).json(err));
