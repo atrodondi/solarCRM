@@ -4,13 +4,16 @@ const Schema = mongoose.Schema;
 const projectsSchema = new Schema({
   client: {
     type: Schema.Types.ObjectId,
-    ref: 'Customer'
+    ref: 'Customer',
   },
   status: { type: String, default: 'Contract Signed' },
   contractSignDate: { type: String },
   contractTotal: { type: Number },
-  deposit: { type: String },
+  deposit: { type: Number },
   designEngFee: { type: Number },
+  materialFee: { type: Number },
+  installFee: { type: Number },
+  finalFee: { type: Number },
   jobsiteAddress: { type: String },
   jobsiteSuite: { type: String },
   jobsiteState: { type: String, default: 'CA' },
@@ -20,7 +23,13 @@ const projectsSchema = new Schema({
   inverters: [],
   modules: [],
   storage: [],
-  buis: []
+  buis: [],
+  notes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'ProjectNotes',
+    },
+  ],
 });
 
 const projects = mongoose.model('Projects', projectsSchema);
