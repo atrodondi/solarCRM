@@ -6,7 +6,6 @@ import ContactCard from './components/contactCard/contactcard';
 import API from './util/API';
 import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
-import { set } from 'mongoose';
 
 export default function App(props) {
   //setting content of main div of app (which is dashboard kind of thing for now)
@@ -111,6 +110,7 @@ export default function App(props) {
                 key={contact._id}
                 id={contact._id}
                 lastName={contact.client.lastName}
+                city={contact.jobsiteCity}
               />
             );
           }
