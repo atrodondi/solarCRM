@@ -7,7 +7,25 @@ import API from './util/API';
 import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
 
+// Import React FilePond
+import { FilePond, File, registerPlugin } from 'react-filepond';
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+// Register the plugins
+registerPlugin(
+  FilePondPluginImagePreview,
+  FilePondPluginFileEncode,
+  FilePondPluginImageExifOrientation
+);
+
 export default function App(props) {
+  //file pond
+  const [files, setFiles] = useState([]);
   //setting content of main div of app (which is dashboard kind of thing for now)
   const [content, setContent] = useState([]);
 
@@ -59,6 +77,11 @@ export default function App(props) {
     API.findAllProjects().then((res) => {
       setContent(res.data);
     });
+  };
+
+  // handle the changing of file input field
+  const onFileDrop = (event) => {
+    console.log(event);
   };
 
   //render
@@ -115,6 +138,17 @@ export default function App(props) {
             );
           }
         })}
+      </div>
+      <div>
+        <FilePond
+          files={files}
+          onupdatefiles={onFileDrop}
+          allowMultiple={false}
+          maxFiles={3}
+          server='/uploads'
+          name='files'
+          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+        />
       </div>
     </div>
   );
