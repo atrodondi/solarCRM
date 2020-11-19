@@ -8,7 +8,7 @@ import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
 
 // Import React FilePond
-import { FilePond, File, registerPlugin } from 'react-filepond';
+import { FilePond, File, registerPlugin, setOptions } from 'react-filepond';
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -79,10 +79,10 @@ export default function App(props) {
     });
   };
 
-  // handle the changing of file input field
-  const onFileDrop = (event) => {
-    console.log(event);
-  };
+  // // handle the changing of file input field
+  // const onFileDrop = (event) => {
+  //   console.log(event);
+  // };
 
   //render
   return (
@@ -141,8 +141,9 @@ export default function App(props) {
       </div>
       <div>
         <FilePond
+          dropOnElement={true}
           files={files}
-          onupdatefiles={onFileDrop}
+          onupdatefiles={setFiles}
           allowMultiple={false}
           maxFiles={3}
           server='/uploads'
