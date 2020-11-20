@@ -5,9 +5,12 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
 const routes = require('./routes');
+const methodOverride = require('method-override');
+const Grid = require('gridfs-stream');
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
@@ -18,12 +21,29 @@ if (process.env.NODE_ENV === 'production') {
 mongoose
   .connect(process.env.MONGO_CONNECTION, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   })
   .then(console.log('connected to MongoDB successfully, full send baby!!'))
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
+
+// mongo uri
+const mongoURI = process.env.MONGO_CONNECTION;
+
+// mongo connection
+const conn = mongoose.createConnection(mongoURI);
+
+// init gfs stream
+let gfs;
+
+conn.once('open', () => {
+  console.log('COnnected to Mongo DB..full send baby!!!!');
+  // init stream
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('uploads');
+});
+
 // Define API routes here
 app.use(routes);
 // Send every other request to the React app

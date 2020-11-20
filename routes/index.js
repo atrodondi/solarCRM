@@ -4,6 +4,7 @@ const customerRoutes = require('./customerRoutes');
 const projectRoutes = require('./projectRoutes');
 const customerNotesRoutes = require('./customerNotesRoutes');
 const projNotesRoutes = require('./projectNotesRoutes');
+const uploadsRoutes = require('./uploadsRoutes');
 
 // customer routes
 router.use('/customer', customerRoutes);
@@ -16,6 +17,9 @@ router.use('/customerNotes', customerNotesRoutes);
 
 // proj notes routes
 router.use('/projectNotes', projNotesRoutes);
+
+// uploads route
+router.use('/upload', uploadsRoutes);
 
 // If no API routes are hit, send the React app
 router.use(function (req, res) {

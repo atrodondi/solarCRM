@@ -22,33 +22,33 @@ export default function App(props) {
 
   //function to open add contact modal
   const openModal = () => {
-    setShowModal((prev) => !prev);
+    setShowModal(prev => !prev);
   };
 
   // function to open new project modal
   const openProjModal = () => {
-    setShowProjModal((prev) => !prev);
+    setShowProjModal(prev => !prev);
     getClients();
   };
 
   // gets all contacts when contact button is pressed and showing it in main content div
   const getContacts = () => {
     setContent([]);
-    API.findAllCustomers().then((res) => {
+    API.findAllCustomers().then(res => {
       setContent(res.data);
     });
   };
 
   // get clients when adding a project, or just so we can call it upon mount to have an updated client list at all times
   const getClients = () => {
-    API.findAllCustomers().then((res) => {
+    API.findAllCustomers().then(res => {
       setClients(res.data);
     });
   };
 
   // search contacts by name
-  const searchContacts = (query) => {
-    API.searchContactsByName(query).then((res) => {
+  const searchContacts = query => {
+    API.searchContactsByName(query).then(res => {
       setContent(res.data);
     });
   };
@@ -56,9 +56,14 @@ export default function App(props) {
   //get all projects and put in main content div (all projeects btn press)
   const getProjects = () => {
     setContent([]);
-    API.findAllProjects().then((res) => {
+    API.findAllProjects().then(res => {
       setContent(res.data);
     });
+  };
+
+  // handle form input
+  const handleInput = event => {
+    console.log(event.target.files[0]);
   };
 
   //render
@@ -93,7 +98,7 @@ export default function App(props) {
         clients={clients}
       ></AddProjModal>
       <div className='container'>
-        {content.map((contact) => {
+        {content.map(contact => {
           if (contact.type === 'customer') {
             return (
               <ContactCard
@@ -116,6 +121,12 @@ export default function App(props) {
           }
         })}
       </div>
+      <form action='/upload' method='POST' encType='multipart/form-data'>
+        <input type='file' name='file' id='file' onChange={handleInput}></input>
+        <button type='submit' onClick={() => console.log('submitted')}>
+          Submit
+        </button>
+      </form>
     </div>
   );
 }
