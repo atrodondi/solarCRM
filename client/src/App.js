@@ -8,7 +8,7 @@ import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
 
 // Import React FilePond
-import { FilePond, File, registerPlugin } from 'react-filepond';
+import { FilePond, registerPlugin } from 'react-filepond';
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
 // import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -23,8 +23,6 @@ export default function App(props) {
   //file pond
   const [files, setFiles] = useState(null);
 
-  // base64 string
-  const [base64String, setBase64String] = useState();
   //setting content of main div of app (which is dashboard kind of thing for now)
   const [content, setContent] = useState([]);
 
@@ -40,11 +38,13 @@ export default function App(props) {
   //function to open add contact modal
   const openModal = () => {
     setShowModal((prev) => !prev);
+    setShowProjModal(false);
   };
 
   // function to open new project modal
   const openProjModal = () => {
     setShowProjModal((prev) => !prev);
+    setShowModal(false);
     getClients();
   };
 
@@ -78,22 +78,24 @@ export default function App(props) {
     });
   };
 
-  // handle the changing of file input field
-  const onFileDrop = () => {
-    console.log('file', this.file);
-  };
-
   // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (files) {
-      console.log(files[0]);
-      console.log(files[0].getFileEncodeDataURL());
-      let str = files[0].getFileEncodeBase64String();
-      let url = files[0];
-      setBase64String(str);
+
+    if (!files || files === undefined || files === null || files.length === 0) {
+      alert('please add a file');
     } else {
-      alert('Please add a file to input');
+      let newFile = files[0].file;
+      let base64Str = files[0].getFileEncodeBase64String();
+      let uploadObj = {
+        file: base64Str,
+        fileName: newFile.name,
+        fileType: newFile.type,
+        projId: '5fb8a5baec4440119465e3f0',
+        document: 'signedContract',
+      };
+      console.log('upload object to send to back end', uploadObj);
+      API.upload(uploadObj).then((result) => console.log(result));
     }
   };
 
@@ -155,6 +157,7 @@ export default function App(props) {
       <div>
         <form onSubmit={handleSubmit}>
           <FilePond
+            allowProcess={false}
             instantUpload={false}
             allowFileEncode={true}
             dropOnElement={true}
@@ -219,9 +222,10 @@ export default function App(props) {
           />
           <button type='submit'>Submit</button>
         </form>
-        {base64String ? (
+
+        {/* Here is was testing to see if i can render the base 64 string, it was working {base64String ? (
           <img src={`data:image/png;base64,${base64String}`}></img>
-        ) : null}
+        // ) : null} */}
       </div>
     </div>
   );

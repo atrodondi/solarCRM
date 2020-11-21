@@ -35,4 +35,9 @@ export default {
   findAllProjects: function () {
     return axios.get('/project');
   },
+
+  // upload file
+  upload: function (file) {
+    return axios.post('/uploads', file);
+  },
 };
