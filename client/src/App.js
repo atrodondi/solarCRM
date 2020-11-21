@@ -8,24 +8,23 @@ import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
 
 // Import React FilePond
-import { FilePond, File, registerPlugin, setOptions } from 'react-filepond';
+import { FilePond, File, registerPlugin } from 'react-filepond';
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+// import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 // Register the plugins
-registerPlugin(
-  FilePondPluginImagePreview,
-  FilePondPluginFileEncode,
-  FilePondPluginImageExifOrientation
-);
+registerPlugin(FilePondPluginImagePreview, FilePondPluginFileEncode);
 
 export default function App(props) {
   //file pond
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(null);
+
+  // base64 string
+  const [base64String, setBase64String] = useState();
   //setting content of main div of app (which is dashboard kind of thing for now)
   const [content, setContent] = useState([]);
 
@@ -79,10 +78,24 @@ export default function App(props) {
     });
   };
 
-  // // handle the changing of file input field
-  // const onFileDrop = (event) => {
-  //   console.log(event);
-  // };
+  // handle the changing of file input field
+  const onFileDrop = () => {
+    console.log('file', this.file);
+  };
+
+  // handle submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (files) {
+      console.log(files[0]);
+      console.log(files[0].getFileEncodeDataURL());
+      let str = files[0].getFileEncodeBase64String();
+      let url = files[0];
+      setBase64String(str);
+    } else {
+      alert('Please add a file to input');
+    }
+  };
 
   //render
   return (
@@ -140,16 +153,75 @@ export default function App(props) {
         })}
       </div>
       <div>
-        <FilePond
-          dropOnElement={true}
-          files={files}
-          onupdatefiles={setFiles}
-          allowMultiple={false}
-          maxFiles={3}
-          server='/uploads'
-          name='files'
-          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-        />
+        <form onSubmit={handleSubmit}>
+          <FilePond
+            instantUpload={false}
+            allowFileEncode={true}
+            dropOnElement={true}
+            files={files}
+            onupdatefiles={setFiles}
+            allowMultiple={false}
+            server={{
+              process: (
+                fieldName,
+                file,
+                metadata,
+                load,
+                error,
+                progress,
+                abort,
+                transfer,
+                options
+              ) => {
+                // fieldName is the name of the input field
+                // file is the actual file object to send
+                const formData = new FormData();
+                formData.append(fieldName, file, file.name);
+
+                const request = new XMLHttpRequest();
+                request.open('POST', '/uploads');
+
+                // Should call the progress method to update the progress to 100% before calling load
+                // Setting computable to false switches the loading indicator to infinite mode
+                request.upload.onprogress = (e) => {
+                  progress(e.lengthComputable, e.loaded, e.total);
+                };
+
+                // Should call the load method when done and pass the returned server file id
+                // this server file id is then used later on when reverting or restoring a file
+                // so your server knows which file to return without exposing that info to the client
+                request.onload = function () {
+                  if (request.status >= 200 && request.status < 300) {
+                    // the load method accepts either a string (id) or an object
+                    load(request.responseText);
+                  } else {
+                    // Can call the error method if something is wrong, should exit after
+                    error('oh no');
+                  }
+                };
+
+                request.send(formData);
+
+                // Should expose an abort method so the request can be cancelled
+                return {
+                  abort: () => {
+                    // This function is entered if the user has tapped the cancel button
+                    request.abort();
+
+                    // Let FilePond know the request has been cancelled
+                    abort();
+                  },
+                };
+              },
+            }}
+            name='files'
+            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          />
+          <button type='submit'>Submit</button>
+        </form>
+        {base64String ? (
+          <img src={`data:image/png;base64,${base64String}`}></img>
+        ) : null}
       </div>
     </div>
   );
