@@ -8,4 +8,14 @@
   margin-top: 10px;
   box-shadow: black;
   border-radius: 10px;
+  border-color: black;
+  border-style: solid;
+  text-align: center;
+}
+
+.projectCard:hover {
+  color: red;
+  cursor: pointer;
+  border-color: orange;
+  border-style: solid;
 }

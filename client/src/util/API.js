@@ -36,6 +36,11 @@ export default {
     return axios.get('/project');
   },
 
+  // find project by id
+  findProjById: function (id) {
+    return axios.get('/project/' + id);
+  },
+
   // upload file
   upload: function (file) {
     return axios.post('/uploads', file);

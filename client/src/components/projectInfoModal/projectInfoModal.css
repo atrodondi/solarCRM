@@ -1,0 +1,33 @@
+.Modal {
+  width: 80%;
+  height: 80%;
+  background: rgb(247, 245, 245);
+  z-index: 99;
+}
+
+.equip-Row {
+  width: 100%;
+  max-height: 400px;
+  background-color: rgb(248, 158, 158);
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.modulesBox {
+  max-height: 250px;
+  max-width: 400px;
+
+  border: black;
+  border-style: solid;
+}
+
+h5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.title,
+.status {
+  text-align: center;
+}

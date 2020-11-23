@@ -6,6 +6,7 @@ import ContactCard from './components/contactCard/contactcard';
 import API from './util/API';
 import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
+import ProjectInfoModal from './components/projectInfoModal/projectInfoModal';
 
 // Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -35,6 +36,12 @@ export default function App(props) {
   // state of showing the add project modal
   const [showProjModal, setShowProjModal] = useState(false);
 
+  // state of showing project info modal
+  const [showProjInfoModal, setShowProjInfoModal] = useState(false);
+
+  // state of project info modal content (project information from API)
+  const [projInfo, setProjInfo] = useState({});
+
   //function to open add contact modal
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -46,6 +53,27 @@ export default function App(props) {
     setShowProjModal((prev) => !prev);
     setShowModal(false);
     getClients();
+  };
+
+  // function to open project info modal
+  const openProjInfoModal = (e) => {
+    let projId = e.target.id;
+
+    // no need to make api call if the Modal is already showing and we want to close the modal, make sure ID is picked up so we dont mess up API call
+    if (showProjInfoModal === false && projId !== '') {
+      console.log('project id---->', projId);
+
+      API.findProjById(projId).then((res) => {
+        console.log(res.data);
+        setProjInfo(res.data);
+        setShowProjInfoModal((prev) => !prev);
+        setShowProjModal(false);
+        setShowModal(false);
+      });
+    } else {
+      // close the modal if it is open
+      setShowProjInfoModal(false);
+    }
   };
 
   // gets all contacts when contact button is pressed and showing it in main content div
@@ -113,6 +141,11 @@ export default function App(props) {
           getProjects={getProjects}
         ></ButtonRow>
       </div>
+      <ProjectInfoModal
+        projInfo={projInfo}
+        showProjInfoModal={showProjInfoModal}
+        openProjInfoModal={openProjInfoModal}
+      ></ProjectInfoModal>
       <AddContactModal
         getContacts={getContacts}
         showModal={showModal}
@@ -148,7 +181,10 @@ export default function App(props) {
                 key={contact._id}
                 id={contact._id}
                 lastName={contact.client.lastName}
+                address={contact.jobsiteAddress}
                 city={contact.jobsiteCity}
+                zipcode={contact.jobsiteZipcode}
+                openProjInfoModal={openProjInfoModal}
               />
             );
           }
