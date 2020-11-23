@@ -3,17 +3,11 @@ const Schema = mongoose.Schema;
 
 const projectsSchema = new Schema(
   {
-    signedContract: { type: String },
+    documents: {},
     type: { type: String, default: 'project' },
     client: {
       type: Schema.Types.ObjectId,
       ref: 'Customer',
-    },
-    document: {
-      type: Buffer,
-    },
-    documentType: {
-      type: String,
     },
     status: { type: String, default: 'Contract Signed' },
     contractSignDate: { type: String },
@@ -43,13 +37,13 @@ const projectsSchema = new Schema(
   { strict: false }
 );
 
-projectsSchema.virtual('documentPath').get(() => {
-  if (this.document != null && this.document.type != null) {
-    return `data:${
-      this.document.type
-    };charset=utf-8;base64,${this.document.toString('base64')}`;
-  }
-});
+// projectsSchema.virtual('documentPath').get(() => {
+//   if (this.document != null && this.document.type != null) {
+//     return `data:${
+//       this.document.type
+//     };charset=utf-8;base64,${this.document.toString('base64')}`;
+//   }
+// });
 
 const projects = mongoose.model('Projects', projectsSchema);
 

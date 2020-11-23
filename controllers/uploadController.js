@@ -3,19 +3,17 @@ const db = require('../models');
 module.exports = {
   //add new upload
   upload: function (req, res) {
-    let pdf = req.body.document;
-    // why is the document not able  to choose the update
+    let newDoc = req.body.newDocument;
+    // why is the document not able  to choose the update... you have to make separate routes for each document type it appears..permit, signed permit, signed contract, etc etc
     let file = req.body.file;
     let projId = req.body.projId;
     db.projects
-      .findByIdAndUpdate(projId, { pdf: file }, { new: true })
-      .then((response) => console.log('RESPONSE FROM UPDATE?', response));
-    // db.uploads
-    //   .create(req.body)
-    //   .then((response) => {
-    //     console.log('upload response---->>>', response);
-    //     res.json(response);
-    //   })
-    //   .catch((err) => res.status(422).json(err));
+      .findByIdAndUpdate(
+        projId,
+        { changeOrder123123: file },
+        { new: true, useFindAndModify: false }
+      )
+      .then((response) => console.log('RESPONSE FROM UPDATE?', response))
+      .catch((err) => res.status(422).json(err));
   },
 };

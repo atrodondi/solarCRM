@@ -91,8 +91,8 @@ export default function App(props) {
         file: base64Str,
         fileName: newFile.name,
         fileType: newFile.type,
-        projId: '5fb8a5baec4440119465e3f0',
-        document: 'signedContract',
+        projId: '5fb8b8efed2cdc0cb85302fa',
+        newDocument: 'signedContract',
       };
       console.log('upload object to send to back end', uploadObj);
       API.upload(uploadObj).then((result) => console.log(result));
