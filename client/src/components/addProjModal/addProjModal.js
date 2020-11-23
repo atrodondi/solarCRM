@@ -19,9 +19,9 @@ export default function addProjModal(props) {
     jobsiteCity: '',
     jobsiteZipcode: '',
     jobsiteCounty: '',
-    inverters: [],
-    modules: [],
-    buis: [],
+    inverters: {},
+    modules: {},
+    buis: {},
     openingNotes: '',
   });
 
@@ -269,21 +269,53 @@ export default function addProjModal(props) {
             </label>
             <br />
             <br />
-            <label>
-              County:
-              <br />
-              <input
-                type='text'
-                name='jobsiteCounty'
-                value={NewProject.jobsiteCounty}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
+            <label>County:</label>
+            <br />
+            <input
+              type='text'
+              name='jobsiteCounty'
+              value={NewProject.jobsiteCounty}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+
             <br />
             <br />
+            <br />
+            <label>Module Make:</label>
+            <br />
+            <input
+              type='text'
+              name='moduleMake'
+              value={NewProject.modules.make}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
             <br />
 
+            <label>Module Model:</label>
+            <br />
+            <input
+              type='text'
+              name='moduleModel'
+              value={NewProject.modules.model}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+            <br />
+
+            <label>Module Amount:</label>
+            <br />
+            <input
+              type='text'
+              name='moduleAmount'
+              value={NewProject.modules.amount}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+            <br />
+            <br />
+            <br />
             <label>
               Opening Notes:
               <br />
@@ -298,6 +330,8 @@ export default function addProjModal(props) {
               />
             </label>
 
+            <br />
+            <br />
             <br />
             <input type='submit' value='Submit' onClick={handleSubmit} />
           </form>

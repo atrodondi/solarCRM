@@ -3,7 +3,13 @@ const Schema = mongoose.Schema;
 
 const projectsSchema = new Schema({
   signedContract: { type: String },
+  permit: { type: String },
+  plansets: { type: String },
+  changeOrders: [],
   finalPermit: { type: String },
+  ahjDocuments: [],
+  sld: { type: String },
+  sldWCharger: { type: String },
   type: { type: String, default: 'project' },
   client: {
     type: Schema.Types.ObjectId,
