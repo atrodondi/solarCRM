@@ -5,3 +5,17 @@
   z-index: 99;
   text-align: center;
 }
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-group {
+  margin: 0 15px 0 15px;
+}
+
+label {
+  font-weight: bold;
+}

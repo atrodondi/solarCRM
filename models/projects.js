@@ -29,10 +29,11 @@ const projectsSchema = new Schema({
   jobsiteCity: { type: String },
   jobsiteZipcode: { type: String },
   jobsiteCounty: { type: String },
-  inverters: [],
-  modules: [],
-  storage: [],
-  buis: [],
+  inverter: { type: Object },
+  modules: { type: Object },
+  battery: { type: Object },
+  optimizer: { type: Object },
+  buis: {},
   notes: [
     {
       type: Schema.Types.ObjectId,
