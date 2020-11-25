@@ -38,6 +38,7 @@ module.exports = {
       db.projects
         .findById(req.params.projectId)
         .populate('client')
+        .populate('notes')
         .then((dbProject) => res.json(dbProject))
         .catch((err) => res.status(422).json(err));
     } else {

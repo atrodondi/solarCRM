@@ -5,34 +5,7 @@ import './addProjModal.css';
 export default function addProjModal(props) {
   // clients
   // new project state
-  const [NewProject, setNewProject] = useState({
-    client: '',
-    contractSignDate: '',
-    contractTotal: '',
-    deposit: '',
-    designEngFee: '',
-    materialFee: '',
-    installFee: '',
-    finalFee: '',
-    jobsiteAddress: '',
-    jobsiteSuite: '',
-    jobsiteCity: '',
-    jobsiteZipcode: '',
-    jobsiteCounty: '',
-    batteryMake: '',
-    batteryModel: '',
-    batteryAmount: '',
-    inverterMake: '',
-    inverterModel: '',
-    inverterAmount: '',
-    moduleMake: '',
-    moduleModel: '',
-    moduleAmount: '',
-    optimizerMake: '',
-    optimizerModel: '',
-    optimizerAmount: '',
-    openingNotes: '',
-  });
+  const [NewProject, setNewProject] = useState({});
 
   // handle change of input value of add project form
   const handleInputChange = (e) => {
@@ -122,6 +95,8 @@ export default function addProjModal(props) {
             console.log('new project note result', result);
           });
         }
+        setNewProject('');
+        //should we close the modal here? what if user wants to add more projects? when we add a new project i should add some indicator on the screen that the project was added sucessfully
       });
     }
     // end of handleSubmit function
@@ -147,7 +122,7 @@ export default function addProjModal(props) {
                   value={NewProject.client}
                   onChange={handleInputChange}
                 >
-                  {/* map out options */}
+                  {/* map out options  as names we got from the API and put their ID in for API call when new project is created*/}
                   <option>...</option>
                   {props.clients.map((contact) => (
                     <option

@@ -63,7 +63,8 @@ export default function App(props) {
     if (showProjInfoModal === false && projId !== '') {
       console.log('project id---->', projId);
 
-      API.findProjById(projId).then((res) => {
+      API.findProjById(projId).then((res, err) => {
+        if (err) throw err;
         console.log(res.data);
         setProjInfo(res.data);
         setShowProjInfoModal((prev) => !prev);
@@ -106,7 +107,7 @@ export default function App(props) {
     });
   };
 
-  // handle submit
+  // handle submit of file upload
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -201,6 +202,7 @@ export default function App(props) {
             onupdatefiles={setFiles}
             allowMultiple={false}
             server={{
+              // out of the box function that according to FilePond author works around the first object being sent to back end being the metadata, often times being blank and leaving a blank insertion into the DB. this server/process addition works around that. and it did. thank you stack overflow
               process: (
                 fieldName,
                 file,
