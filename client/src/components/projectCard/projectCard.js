@@ -4,9 +4,15 @@ import './projectCard.css';
 export default function projectCard(props) {
   return (
     <>
-      <div className='projectCard' id={props.id}>
-        <h5>{props.lastName} Residence</h5>
-        <p>{props.city}</p>
+      <div
+        className='projectCard'
+        id={props.id}
+        onClick={props.openProjInfoModal}
+      >
+        <h2 className='project-name'>{props.lastName} Project</h2>
+        <p>
+          {props.address}, {props.city} CA {props.zipcode}
+        </p>
       </div>
     </>
   );

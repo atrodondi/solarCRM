@@ -18,7 +18,7 @@ module.exports = {
   },
 
   // Find all customers and sort by lastname
-  findAllCustomers: function (req, res) {
+  findAllCustomers: async function (req, res) {
     db.customer
       .find({})
       .populate('notes')
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   // search by name, sort by last name
-  searchByName: function (req, res) {
+  searchByName: async function (req, res) {
     let searchQuery = req.params.query;
     console.log('params yo-->', searchQuery);
     db.customer

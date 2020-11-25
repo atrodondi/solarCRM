@@ -1,13 +1,16 @@
-const router = require("express").Router();
-const projectController = require("../../controllers/projectController");
+const router = require('express').Router();
+const projectController = require('../../controllers/projectController');
 
 // create new project
-router.route("/createNew").post(projectController.newProject);
+// @/project/createNew
+router.route('/createNew').post(projectController.newProject);
 
 // findall projects
-router.route("/").get(projectController.findAllProjects);
+// @/project
+router.route('/').get(projectController.findAllProjects);
 
 // find project by ID
-router.route("/:projectId").get(projectController.findProjectById);
+// @/project/:projectId
+router.route('/:projectId').get(projectController.findProjectById);
 
 module.exports = router;
