@@ -8,6 +8,7 @@ const routes = require('./routes');
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
+// this line below this one is in place of body parser, old library needed to parse json
 app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
@@ -24,6 +25,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
 // Define API routes here
 app.use(routes);
 // Send every other request to the React app

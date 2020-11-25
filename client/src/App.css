@@ -1,10 +1,5 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  z-index: 1;
 }
 
 .App-header {
@@ -15,10 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.App-intro {
-  font-size: large;
 }
 
 .container {
@@ -42,4 +33,20 @@
   right: 20px;
   top: 5px;
   font-size: larger;
+}
+
+/* modal wrappers here so just need to worry about styling each indivual modal now that the container is set to go */
+.modalWrapper {
+  z-index: 98;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
 }

@@ -5,25 +5,7 @@ import './addProjModal.css';
 export default function addProjModal(props) {
   // clients
   // new project state
-  const [NewProject, setNewProject] = useState({
-    client: '',
-    contractSignDate: '',
-    contractTotal: '',
-    deposit: '',
-    designEngFee: '',
-    materialFee: '',
-    installFee: '',
-    finalFee: '',
-    jobsiteAddress: '',
-    jobsiteSuite: '',
-    jobsiteCity: '',
-    jobsiteZipcode: '',
-    jobsiteCounty: '',
-    inverters: [],
-    modules: [],
-    buis: [],
-    openingNotes: '',
-  });
+  const [NewProject, setNewProject] = useState({});
 
   // handle change of input value of add project form
   const handleInputChange = (e) => {
@@ -53,6 +35,26 @@ export default function addProjModal(props) {
       jobsiteCity: NewProject.jobsiteCity,
       jobsiteZipcode: NewProject.jobsiteZipcode,
       jobsiteCounty: NewProject.jobsiteCounty,
+      modules: {
+        make: NewProject.moduleMake,
+        model: NewProject.moduleModel,
+        amount: NewProject.moduleAmount,
+      },
+      inverter: {
+        make: NewProject.inverterMake,
+        model: NewProject.inverterModel,
+        amount: NewProject.inverterAmount,
+      },
+      battery: {
+        make: NewProject.batteryMake,
+        model: NewProject.batteryModel,
+        bamount: NewProject.batteryAmount,
+      },
+      optimizer: {
+        make: NewProject.optimizerMake,
+        model: NewProject.optimizerModel,
+        amount: NewProject.optimizerAmount,
+      },
     };
     if (
       parseInt(NewProject.contractTotal) !==
@@ -93,6 +95,8 @@ export default function addProjModal(props) {
             console.log('new project note result', result);
           });
         }
+        setNewProject('');
+        //should we close the modal here? what if user wants to add more projects? when we add a new project i should add some indicator on the screen that the project was added sucessfully
       });
     }
     // end of handleSubmit function
@@ -109,177 +113,317 @@ export default function addProjModal(props) {
         <br />
         <div className='formContainer'>
           <form>
-            <label>
-              Client:
+            <div className='form-group'>
+              <label>
+                Client:
+                <br />
+                <select
+                  name='client'
+                  value={NewProject.client}
+                  onChange={handleInputChange}
+                >
+                  {/* map out options  as names we got from the API and put their ID in for API call when new project is created*/}
+                  <option>...</option>
+                  {props.clients.map((contact) => (
+                    <option
+                      key={contact._id}
+                      id={contact._id}
+                      value={contact._id}
+                    >
+                      {contact.lastName + ', ' + contact.firstName}
+                    </option>
+                  ))}
+                </select>
+              </label>
               <br />
-              <select
-                name='client'
-                value={NewProject.client}
-                onChange={handleInputChange}
-              >
-                {/* map out options */}
-                <option>...</option>
-                {props.clients.map((contact) => (
-                  <option
-                    key={contact._id}
-                    id={contact._id}
-                    value={contact._id}
-                  >
-                    {contact.lastName + ', ' + contact.firstName}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <br />
+              <label>
+                Contract Sign Date:
+                <br />
+                <input
+                  type='text'
+                  name='contractSignDate'
+                  value={NewProject.contractSignDate}
+                  autoComplete='off'
+                  onChange={handleInputChange}
+                />
+              </label>
+              <br />
+              <br />
+              <div className='form-group'>
+                <label>
+                  Street Address:
+                  <br />
+                  <input
+                    type='text'
+                    name='jobsiteAddress'
+                    value={NewProject.jobsiteAddress}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Suite:
+                  <br />
+                  <input
+                    type='text'
+                    name='jobsiteSuite'
+                    value={NewProject.jobsiteSuite}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  City:
+                  <br />
+                  <input
+                    type='text'
+                    name='jobsiteCity'
+                    value={NewProject.jobsiteCity}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Zipcode:
+                  <br />
+                  <input
+                    type='text'
+                    name='jobsiteZipcode'
+                    value={NewProject.jobsiteZipcode}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>County:</label>
+                <br />
+                <input
+                  type='text'
+                  name='jobsiteCounty'
+                  value={NewProject.jobsiteCounty}
+                  autoComplete='off'
+                  onChange={handleInputChange}
+                />
+                <br />
+                <label>
+                  Contract Total:
+                  <br />
+                  <input
+                    type='text'
+                    name='contractTotal'
+                    value={NewProject.contractTotal}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Deposit:
+                  <br />
+                  <input
+                    type='text'
+                    name='deposit'
+                    value={NewProject.deposit}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Design / Engineering Fee:
+                  <br />
+                  <input
+                    type='text'
+                    name='designEngFee'
+                    value={NewProject.designEngFee}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Material Fee:
+                  <br />
+                  <input
+                    type='text'
+                    name='materialFee'
+                    value={NewProject.materialFee}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Installation Fee:
+                  <br />
+                  <input
+                    type='text'
+                    name='installFee'
+                    value={NewProject.installFee}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Final Fee:
+                  <br />
+                  <input
+                    type='text'
+                    name='finalFee'
+                    value={NewProject.finalFee}
+                    autoComplete='off'
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <br />
+              <br />
+              <br />
+            </div>
+          </form>
+          <form>
             <br />
             <br />
-            <label>
-              Contract Sign Date:
+            <br />
+            <div className='form-group'>
+              <label>Module Make:</label>
               <br />
               <input
                 type='text'
-                name='contractSignDate'
-                value={NewProject.contractSignDate}
+                name='moduleMake'
+                value={NewProject.modulesMake}
                 autoComplete='off'
                 onChange={handleInputChange}
               />
-            </label>
-            <br />
-            <br />
-            <label>
-              Contract Total:
+              <br />
+
+              <label>Module Model:</label>
               <br />
               <input
                 type='text'
-                name='contractTotal'
-                value={NewProject.contractTotal}
+                name='moduleModel'
+                value={NewProject.modulesModel}
                 autoComplete='off'
                 onChange={handleInputChange}
               />
-            </label>
-            <br />
-            <label>
-              Deposit:
+              <br />
+
+              <label>Module Amount:</label>
               <br />
               <input
                 type='text'
-                name='deposit'
-                value={NewProject.deposit}
+                name='moduleAmount'
+                value={NewProject.modulesAmount}
                 autoComplete='off'
                 onChange={handleInputChange}
               />
-            </label>
-            <br />
-            <label>
-              Design / Engineering Fee:
+              <br />
+              <br />
+
+              <label>Inverter Make:</label>
               <br />
               <input
                 type='text'
-                name='designEngFee'
-                value={NewProject.designEngFee}
+                name='inverterMake'
+                value={NewProject.invertersMake}
                 autoComplete='off'
                 onChange={handleInputChange}
               />
-            </label>
-            <br />
-            <label>
-              Material Fee:
+              <br />
+              <label>Inverter Model:</label>
               <br />
               <input
                 type='text'
-                name='materialFee'
-                value={NewProject.materialFee}
+                name='inverterModel'
+                value={NewProject.invertersModel}
                 autoComplete='off'
                 onChange={handleInputChange}
               />
-            </label>
-            <br />
-            <label>
-              Installation Fee:
+              <br />
+
+              <label>Inverter Amount:</label>
               <br />
               <input
                 type='text'
-                name='installFee'
-                value={NewProject.installFee}
+                name='inverterAmount'
+                value={NewProject.invertersAmount}
                 autoComplete='off'
                 onChange={handleInputChange}
               />
-            </label>
-            <br />
-            <label>
-              Final Fee:
-              <br />
-              <input
-                type='text'
-                name='finalFee'
-                value={NewProject.finalFee}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
-            <br />
-            <br />
+            </div>
             <br />
 
-            <label>
-              Street Address:
-              <br />
-              <input
-                type='text'
-                name='jobsiteAddress'
-                value={NewProject.jobsiteAddress}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
+            <label>Optimizer Make:</label>
             <br />
-            <label>
-              Suite:
-              <br />
-              <input
-                type='text'
-                name='jobsiteSuite'
-                value={NewProject.jobsiteSuite}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
+            <input
+              type='text'
+              name='optimizerMake'
+              value={NewProject.optimizersMake}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
             <br />
-            <label>
-              City:
-              <br />
-              <input
-                type='text'
-                name='jobsiteCity'
-                value={NewProject.jobsiteCity}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
+
+            <label>Optimizer Model:</label>
             <br />
-            <label>
-              Zipcode:
-              <br />
-              <input
-                type='text'
-                name='jobsiteZipcode'
-                value={NewProject.jobsiteZipcode}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
+            <input
+              type='text'
+              name='optimizerModel'
+              value={NewProject.optimizersModel}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+            <br />
+
+            <label>Optimizer Amount:</label>
+            <br />
+            <input
+              type='text'
+              name='optimizerAmount'
+              value={NewProject.optimizersAmount}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+            <br />
+
+            <label>Battery Make:</label>
+            <br />
+            <input
+              type='text'
+              name='batteryMake'
+              value={NewProject.batteriesMake}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+            <br />
+
+            <label>Battery Model:</label>
+            <br />
+            <input
+              type='text'
+              name='batteryModel'
+              value={NewProject.batteriesModel}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
+            <br />
+
+            <label>Battery Amount:</label>
+            <br />
+            <input
+              type='text'
+              name='batteryAmount'
+              value={NewProject.batteriesAmount}
+              autoComplete='off'
+              onChange={handleInputChange}
+            />
             <br />
             <br />
-            <label>
-              County:
-              <br />
-              <input
-                type='text'
-                name='jobsiteCounty'
-                value={NewProject.jobsiteCounty}
-                autoComplete='off'
-                onChange={handleInputChange}
-              />
-            </label>
             <br />
             <br />
             <br />
@@ -298,6 +442,8 @@ export default function addProjModal(props) {
               />
             </label>
 
+            <br />
+            <br />
             <br />
             <input type='submit' value='Submit' onClick={handleSubmit} />
           </form>

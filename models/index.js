@@ -1,11 +1,13 @@
 module.exports = {
-  customer: require("./customer"),
+  customer: require('./customer'),
 
-  customerNotes: require("./customerNotes"),
+  customerNotes: require('./customerNotes'),
 
-  projects: require("./projects"),
+  projects: require('./projects'),
 
-  projectNotes: require("./projectNotes"),
+  projectNotes: require('./projectNotes'),
 
-  completedProjects: require("./completedProjects")
+  completedProjects: require('./completedProjects'),
+
+  uploads: require('./uploads'),
 };

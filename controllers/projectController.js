@@ -21,7 +21,7 @@ module.exports = {
   },
 
   //  findall projects
-  findAllProjects: function (req, res) {
+  findAllProjects: async function (req, res) {
     db.projects
       .find({})
       .populate('notes')
@@ -31,11 +31,20 @@ module.exports = {
   },
 
   //   find project by id
-  findProjectById: function (req, res) {
-    db.projects
-      .findById(req.params.projectId)
-      .populate('client')
-      .then((dbProject) => res.json(dbProject))
-      .catch((err) => res.status(422).json(err));
+  findProjectById: async function (req, res) {
+    let projectId = req.params.projectId;
+    console.log('projectId--->>>', projectId);
+    if (projectId != undefined) {
+      db.projects
+        .findById(req.params.projectId)
+        .populate('client')
+        .populate('notes')
+        .then((dbProject) => res.json(dbProject))
+        .catch((err) => res.status(422).json(err));
+    } else {
+      res.send({
+        msg: 'Something went wrong, please pick a project again!',
+      });
+    }
   },
 };
