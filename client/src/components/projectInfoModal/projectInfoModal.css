@@ -7,21 +7,21 @@
 
 .Row {
   width: 100%;
-  max-height: 400px;
-  background-color: rgb(201, 188, 188);
+  max-height: 250px;
   display: flex;
   text-align: center;
   vertical-align: middle;
   margin-top: 10px;
+  border-style: groove;
+  border-color: grey;
 }
 
 .Box {
   max-height: 250px;
   max-width: 400px;
-
-  border: black;
-  border-style: solid;
+  border-color: dimgray;
   margin: auto;
+  box-shadow: darkslategrey;
 }
 
 h5 {
@@ -32,4 +32,28 @@ h5 {
 .title,
 .status {
   text-align: center;
+  justify-content: center;
+}
+
+.modalHeader {
+  display: flex;
+  text-align: center;
+}
+
+.boxTitle {
+  /* border-style: dashed; */
+  border-color: rgb(99, 93, 99);
+  box-shadow: black;
+  margin: 1px 0 1px 0;
+  max-height: 3rem;
+  vertical-align: middle;
+}
+
+.filepond--root {
+  max-height: fit-content;
+}
+
+.filePond-row {
+  width: 100%;
+  max-height: 250px;
 }
