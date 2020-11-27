@@ -4,15 +4,23 @@ module.exports = {
   //add new upload
   upload: function (req, res) {
     // why is the document not able  to choose the update... you have to make separate routes for each document type it appears..permit, signed permit, signed contract, etc etc
-    let file = req.body.file;
+    console.log('upload REQUEST BODY-->', req.body);
     let projId = req.body.projId;
-    db.projects
-      .findByIdAndUpdate(
-        projId,
-        { signedContractfartsandwich: file },
-        { new: true, useFindAndModify: false }
-      )
-      .then((response) => console.log('RESPONSE FROM UPDATE?', response))
-      .catch((err) => res.status(422).json(err));
-  },
+    let documentObj = {
+      file: req.body.file,
+      fileName: req.body.fileName,
+      document: req.body.document
+    };
+    db.uploads
+      .create(documentObj)
+      .then(dbModel => {
+        console.log(dbModel);
+        return db.projects.findByIdAndUpdate(
+          { _id: projId },
+          { $push: { documents: dbModel._id } },
+          { new: true, useFindAndModify: false }
+        );
+      })
+      .then(response => console.log('project update docuements', response));
+  }
 };

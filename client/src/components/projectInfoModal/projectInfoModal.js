@@ -16,6 +16,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 registerPlugin(FilePondPluginImagePreview, FilePondPluginFileEncode);
 
 export default function projectInfoModal(props) {
+  const [documents, setDocuments] = useState(props.projInfo.documents);
   //getting notes so we can map throough em
   const notes = props.projInfo.notes;
   const projId = props.projInfo._id;
@@ -29,17 +30,19 @@ export default function projectInfoModal(props) {
   const handleSubmit = e => {
     e.preventDefault();
 
+    // checking to make sure that files has a file
     if (!files || files === undefined || files === null || files.length === 0) {
       alert('please add a file');
     } else {
       let newFile = files[0].file;
       let base64Str = files[0].getFileEncodeBase64String();
+      // creating the object we want to send to back end to add to database
       let uploadObj = {
         file: base64Str,
         fileName: newFile.name,
         fileType: newFile.type,
         projId: projId,
-        newDocument: newDocument
+        document: newDocument
       };
       console.log('upload object to send to back end', uploadObj);
       API.upload(uploadObj).then(result => console.log(result));
@@ -124,10 +127,20 @@ export default function projectInfoModal(props) {
           </div>
           <div className='Row'>
             <h3>Documents: </h3>
-            <div className='Box'>
-              <h3>Signed Contract</h3>
-              <a href='#'>View / Download</a>
-            </div>
+            {props.projInfo.documents.map(document => {
+              return (
+                <div className='Box' key={document._id}>
+                  <h3>{document.document}</h3>
+                  <a
+                    href={'data:application/pdf;base64, ' + document.file}
+                    download={document.fileName}
+                    target='_blank'
+                  >
+                    Download
+                  </a>
+                </div>
+              );
+            })}
           </div>
           <div className='Row'>
             <h3>Notes:</h3>
