@@ -24,6 +24,7 @@ export default function projectInfoModal(props) {
   const [newDocument, setNewDocument] = useState('');
   //file pond files
   const [files, setFiles] = useState(null);
+
   // handle submit of file upload
   const handleSubmit = e => {
     e.preventDefault();
@@ -42,6 +43,7 @@ export default function projectInfoModal(props) {
       };
       console.log('upload object to send to back end', uploadObj);
       API.upload(uploadObj).then(result => console.log(result));
+      setFiles(undefined);
     }
   };
 
@@ -210,7 +212,7 @@ export default function projectInfoModal(props) {
               name='files'
               labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
             />
-            <label for='newDocument'>What document are you uploading?</label>
+            <label>What document are you uploading?</label>
             <select
               style={{ marginLeft: '3px' }}
               name='newDocument'

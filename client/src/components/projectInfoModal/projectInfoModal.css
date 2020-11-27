@@ -3,6 +3,7 @@
   height: 80%;
   background: rgb(247, 245, 245);
   z-index: 99;
+  overflow-y: auto;
 }
 
 .Row {

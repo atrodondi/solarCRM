@@ -4,6 +4,7 @@
   background: #95a5a6;
   z-index: 99;
   text-align: center;
+  overflow-y: auto;
 }
 
 .formContainer {

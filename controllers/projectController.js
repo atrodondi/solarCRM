@@ -71,5 +71,83 @@ module.exports = {
         }
       })
       .catch(err => res.status(422).json(err));
+  },
+
+  // uploading permit document
+  uploadPermit: function (req, res) {
+    console.log(req.body);
+    console.log(req.params.id);
+    let file = req.body.file;
+    db.projects
+      .findByIdAndUpdate(
+        { _id: req.params.id },
+        { $set: { permit: file } },
+        { new: true, useFindAndModify: false }
+      )
+      .then(result => {
+        // console.log('result of uploading signed contract', result);
+        if (result.permit === file) {
+          res.json({
+            msg: ' Permit Upload Successful!'
+          });
+        } else {
+          res.json({
+            msg: 'Oops! Something went wrong!! Please Try Again'
+          });
+        }
+      })
+      .catch(err => res.status(422).json(err));
+  },
+
+  // upload plansets
+  uploadPlansets: function (req, res) {
+    console.log(req.body);
+    console.log(req.params.id);
+    let file = req.body.file;
+    db.projects
+      .findByIdAndUpdate(
+        { _id: req.params.id },
+        { $set: { plansets: file } },
+        { new: true, useFindAndModify: false }
+      )
+      .then(result => {
+        // console.log('result of uploading signed contract', result);
+        if (result.plansets === file) {
+          res.json({
+            msg: ' Permit Upload Successful!'
+          });
+        } else {
+          res.json({
+            msg: 'Oops! Something went wrong!! Please Try Again'
+          });
+        }
+      })
+      .catch(err => res.status(422).json(err));
+  },
+
+  // upload final signed off permits
+  uploadFinalPermit: function (req, res) {
+    let file = req.body.file;
+    db.projects
+      .findByIdAndUpdate(
+        { _id: req.params.id },
+        { $set: { finalPermit: file } },
+        { new: true, useFindAndModify: false }
+      )
+      .then(result => {
+        // console.log('result of uploading signed contract', result);
+        if (result.plansets === file) {
+          res.json({
+            msg: ' Final Permit Upload Successful!'
+          });
+        } else {
+          res.json({
+            msg: 'Oops! Something went wrong!! Please Try Again'
+          });
+        }
+      })
+      .catch(err => res.status(422).json(err));
   }
+
+  // end of module exports
 };
