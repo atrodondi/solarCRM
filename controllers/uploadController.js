@@ -15,12 +15,18 @@ module.exports = {
       .create(documentObj)
       .then(dbModel => {
         console.log(dbModel);
-        return db.projects.findByIdAndUpdate(
-          { _id: projId },
-          { $push: { documents: dbModel._id } },
-          { new: true, useFindAndModify: false }
-        );
+        return db.projects
+          .findByIdAndUpdate(
+            { _id: projId },
+            { $push: { documents: dbModel._id } },
+            { new: true, useFindAndModify: false }
+          )
+          .populate('documents')
+          .populate('client');
       })
-      .then(response => console.log('project update docuements', response));
+      .then(response => {
+        console.log('project update docuements', response);
+        res.json(response);
+      });
   }
 };

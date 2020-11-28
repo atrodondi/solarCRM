@@ -16,7 +16,6 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 registerPlugin(FilePondPluginImagePreview, FilePondPluginFileEncode);
 
 export default function projectInfoModal(props) {
-  const [documents, setDocuments] = useState(props.projInfo.documents);
   //getting notes so we can map throough em
   const notes = props.projInfo.notes;
   const projId = props.projInfo._id;
@@ -45,7 +44,11 @@ export default function projectInfoModal(props) {
         document: newDocument
       };
       console.log('upload object to send to back end', uploadObj);
-      API.upload(uploadObj).then(result => console.log(result));
+      API.upload(uploadObj).then(result => {
+        console.log(result);
+        // resetting info to update the dom. prob need to reorganize entire app to make this less gross and sloppy with so many props. maybe use pages instead of modals. for this at least...
+        props.setProjInfo(result.data);
+      });
       setFiles(undefined);
     }
   };

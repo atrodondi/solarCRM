@@ -46,8 +46,6 @@ export default function App(props) {
 
     // no need to make api call if the Modal is already showing and we want to close the modal, make sure ID is picked up so we dont mess up API call
     if (showProjInfoModal === false && projId !== '') {
-      console.log('project id---->', projId);
-
       API.findProjById(projId).then((res, err) => {
         if (err) throw err;
         console.log(res.data);
@@ -108,6 +106,7 @@ export default function App(props) {
       </div>
       <ProjectInfoModal
         projInfo={projInfo}
+        setProjInfo={setProjInfo}
         showProjInfoModal={showProjInfoModal}
         openProjInfoModal={openProjInfoModal}
       ></ProjectInfoModal>
