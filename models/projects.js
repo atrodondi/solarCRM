@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const projectsSchema = new Schema({
-  signedContract: { type: String },
-  permit: { type: String },
-  plansets: { type: String },
+  documents: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Uploads'
+    }
+  ],
   changeOrders: [],
-  finalPermit: { type: String },
   ahjDocuments: [],
-  sld: { type: String },
-  sldWCharger: { type: String },
   type: { type: String, default: 'project' },
   client: {
     type: Schema.Types.ObjectId,
-    ref: 'Customer',
+    ref: 'Customer'
   },
   status: { type: String, default: 'Contract Signed' },
   contractSignDate: { type: String },
@@ -37,9 +37,9 @@ const projectsSchema = new Schema({
   notes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'ProjectNotes',
-    },
-  ],
+      ref: 'ProjectNotes'
+    }
+  ]
 });
 
 // projectsSchema.virtual('documentPath').get(() => {

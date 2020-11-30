@@ -8,22 +8,7 @@ import AddProjModal from './components/addProjModal/addProjModal';
 import ProjectCard from './components/projectCard/projectCard';
 import ProjectInfoModal from './components/projectInfoModal/projectInfoModal';
 
-// Import React FilePond
-import { FilePond, registerPlugin } from 'react-filepond';
-// Import FilePond styles
-import 'filepond/dist/filepond.min.css';
-// import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-
-// Register the plugins
-registerPlugin(FilePondPluginImagePreview, FilePondPluginFileEncode);
-
 export default function App(props) {
-  //file pond
-  const [files, setFiles] = useState(null);
-
   //setting content of main div of app (which is dashboard kind of thing for now)
   const [content, setContent] = useState([]);
 
@@ -61,8 +46,6 @@ export default function App(props) {
 
     // no need to make api call if the Modal is already showing and we want to close the modal, make sure ID is picked up so we dont mess up API call
     if (showProjInfoModal === false && projId !== '') {
-      console.log('project id---->', projId);
-
       API.findProjById(projId).then((res, err) => {
         if (err) throw err;
         console.log(res.data);
@@ -107,27 +90,6 @@ export default function App(props) {
     });
   };
 
-  // handle submit of file upload
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!files || files === undefined || files === null || files.length === 0) {
-      alert('please add a file');
-    } else {
-      let newFile = files[0].file;
-      let base64Str = files[0].getFileEncodeBase64String();
-      let uploadObj = {
-        file: base64Str,
-        fileName: newFile.name,
-        fileType: newFile.type,
-        projId: '5fb8b8efed2cdc0cb85302fa',
-        newDocument: 'signedContract',
-      };
-      console.log('upload object to send to back end', uploadObj);
-      API.upload(uploadObj).then((result) => console.log(result));
-    }
-  };
-
   //render
   return (
     <div className='App'>
@@ -144,6 +106,7 @@ export default function App(props) {
       </div>
       <ProjectInfoModal
         projInfo={projInfo}
+        setProjInfo={setProjInfo}
         showProjInfoModal={showProjInfoModal}
         openProjInfoModal={openProjInfoModal}
       ></ProjectInfoModal>
@@ -174,6 +137,10 @@ export default function App(props) {
                 firstName={contact.firstName}
                 lastName={contact.lastName}
                 city={contact.addressCity}
+                address={contact.addressStreet}
+                zipcode={contact.addressZipcode}
+                phone={contact.phone}
+                email={contact.email}
               />
             );
           } else if (contact.type === 'project') {
@@ -192,75 +159,6 @@ export default function App(props) {
         })}
       </div>
       <div>
-        <form onSubmit={handleSubmit}>
-          <FilePond
-            allowProcess={false}
-            instantUpload={false}
-            allowFileEncode={true}
-            dropOnElement={true}
-            files={files}
-            onupdatefiles={setFiles}
-            allowMultiple={false}
-            server={{
-              // out of the box function that according to FilePond author works around the first object being sent to back end being the metadata, often times being blank and leaving a blank insertion into the DB. this server/process addition works around that. and it did. thank you stack overflow
-              process: (
-                fieldName,
-                file,
-                metadata,
-                load,
-                error,
-                progress,
-                abort,
-                transfer,
-                options
-              ) => {
-                // fieldName is the name of the input field
-                // file is the actual file object to send
-                const formData = new FormData();
-                formData.append(fieldName, file, file.name);
-
-                const request = new XMLHttpRequest();
-                request.open('POST', '/uploads');
-
-                // Should call the progress method to update the progress to 100% before calling load
-                // Setting computable to false switches the loading indicator to infinite mode
-                request.upload.onprogress = (e) => {
-                  progress(e.lengthComputable, e.loaded, e.total);
-                };
-
-                // Should call the load method when done and pass the returned server file id
-                // this server file id is then used later on when reverting or restoring a file
-                // so your server knows which file to return without exposing that info to the client
-                request.onload = function () {
-                  if (request.status >= 200 && request.status < 300) {
-                    // the load method accepts either a string (id) or an object
-                    load(request.responseText);
-                  } else {
-                    // Can call the error method if something is wrong, should exit after
-                    error('oh no');
-                  }
-                };
-
-                request.send(formData);
-
-                // Should expose an abort method so the request can be cancelled
-                return {
-                  abort: () => {
-                    // This function is entered if the user has tapped the cancel button
-                    request.abort();
-
-                    // Let FilePond know the request has been cancelled
-                    abort();
-                  },
-                };
-              },
-            }}
-            name='files'
-            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-          />
-          <button type='submit'>Submit</button>
-        </form>
-
         {/* Here is was testing to see if i can render the base 64 string, it was working {base64String ? (
           <img src={`data:image/png;base64,${base64String}`}></img>
         // ) : null} */}

@@ -42,7 +42,8 @@ export default {
   },
 
   // upload file
+  // @ /uploads/fileType(ie. contract,permit,planset, etc/projId
   upload: function (file) {
     return axios.post('/uploads', file);
-  },
+  }
 };

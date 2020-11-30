@@ -5,7 +5,7 @@ module.exports = {
   newProject: function (req, res) {
     db.projects
       .create(req.body)
-      .then((dbModel) => {
+      .then(dbModel => {
         console.log(dbModel);
         // then push the new project into the clients active project list
         return db.customer.findOneAndUpdate(
@@ -14,10 +14,10 @@ module.exports = {
           { new: true }
         );
       })
-      .then((dbUser) => {
+      .then(dbUser => {
         res.json(dbUser);
       })
-      .catch((err) => res.status(422).json(err));
+      .catch(err => res.status(422).json(err));
   },
 
   //  findall projects
@@ -26,8 +26,8 @@ module.exports = {
       .find({})
       .populate('notes')
       .populate('client')
-      .then((dbProjs) => res.json(dbProjs))
-      .catch((err) => res.status(422).json(err));
+      .then(dbProjs => res.json(dbProjs))
+      .catch(err => res.status(422).json(err));
   },
 
   //   find project by id
@@ -38,13 +38,16 @@ module.exports = {
       db.projects
         .findById(req.params.projectId)
         .populate('client')
+        .populate('documents')
         .populate('notes')
-        .then((dbProject) => res.json(dbProject))
-        .catch((err) => res.status(422).json(err));
+        .then(dbProject => res.json(dbProject))
+        .catch(err => res.status(422).json(err));
     } else {
       res.send({
-        msg: 'Something went wrong, please pick a project again!',
+        msg: 'Something went wrong, please pick a project again!'
       });
     }
-  },
+  }
+
+  // end of module exports
 };
