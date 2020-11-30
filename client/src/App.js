@@ -29,19 +29,19 @@ export default function App(props) {
 
   //function to open add contact modal
   const openModal = () => {
-    setShowModal(prev => !prev);
+    setShowModal((prev) => !prev);
     setShowProjModal(false);
   };
 
   // function to open new project modal
   const openProjModal = () => {
-    setShowProjModal(prev => !prev);
+    setShowProjModal((prev) => !prev);
     setShowModal(false);
     getClients();
   };
 
   // function to open project info modal
-  const openProjInfoModal = e => {
+  const openProjInfoModal = (e) => {
     let projId = e.target.id;
 
     // no need to make api call if the Modal is already showing and we want to close the modal, make sure ID is picked up so we dont mess up API call
@@ -50,7 +50,7 @@ export default function App(props) {
         if (err) throw err;
         console.log(res.data);
         setProjInfo(res.data);
-        setShowProjInfoModal(prev => !prev);
+        setShowProjInfoModal((prev) => !prev);
         setShowProjModal(false);
         setShowModal(false);
       });
@@ -63,21 +63,21 @@ export default function App(props) {
   // gets all contacts when contact button is pressed and showing it in main content div
   const getContacts = () => {
     setContent([]);
-    API.findAllCustomers().then(res => {
+    API.findAllCustomers().then((res) => {
       setContent(res.data);
     });
   };
 
   // get clients when adding a project, or just so we can call it upon mount to have an updated client list at all times
   const getClients = () => {
-    API.findAllCustomers().then(res => {
+    API.findAllCustomers().then((res) => {
       setClients(res.data);
     });
   };
 
   // search contacts by name
-  const searchContacts = query => {
-    API.searchContactsByName(query).then(res => {
+  const searchContacts = (query) => {
+    API.searchContactsByName(query).then((res) => {
       setContent(res.data);
     });
   };
@@ -85,7 +85,7 @@ export default function App(props) {
   //get all projects and put in main content div (all projeects btn press)
   const getProjects = () => {
     setContent([]);
-    API.findAllProjects().then(res => {
+    API.findAllProjects().then((res) => {
       setContent(res.data);
     });
   };
@@ -128,7 +128,7 @@ export default function App(props) {
         clients={clients}
       ></AddProjModal>
       <div className='container'>
-        {content.map(contact => {
+        {content.map((contact) => {
           if (contact.type === 'customer') {
             return (
               <ContactCard
@@ -137,6 +137,10 @@ export default function App(props) {
                 firstName={contact.firstName}
                 lastName={contact.lastName}
                 city={contact.addressCity}
+                address={contact.addressStreet}
+                zipcode={contact.addressZipcode}
+                phone={contact.phone}
+                email={contact.email}
               />
             );
           } else if (contact.type === 'project') {

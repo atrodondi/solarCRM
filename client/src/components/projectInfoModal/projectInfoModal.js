@@ -26,7 +26,7 @@ export default function projectInfoModal(props) {
   const [files, setFiles] = useState(null);
 
   // handle submit of file upload
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // checking to make sure that files has a file
@@ -41,10 +41,10 @@ export default function projectInfoModal(props) {
         fileName: newFile.name,
         fileType: newFile.type,
         projId: projId,
-        document: newDocument
+        document: newDocument,
       };
       console.log('upload object to send to back end', uploadObj);
-      API.upload(uploadObj).then(result => {
+      API.upload(uploadObj).then((result) => {
         console.log(result);
         // resetting info to update the dom. prob need to reorganize entire app to make this less gross and sloppy with so many props. maybe use pages instead of modals. for this at least...
         props.setProjInfo(result.data);
@@ -130,14 +130,16 @@ export default function projectInfoModal(props) {
           </div>
           <div className='Row'>
             <h3>Documents: </h3>
-            {props.projInfo.documents.map(document => {
+            {props.projInfo.documents.map((document) => {
               return (
                 <div className='Box' key={document._id}>
                   <h3>{document.document}</h3>
+                  <p style={{ color: 'grey' }}>
+                    {moment(document.createdAt).format('MMM Do YYYY')}
+                  </p>
                   <a
                     href={'data:application/pdf;base64, ' + document.file}
                     download={document.fileName}
-                    target='_blank'
                   >
                     Download
                   </a>
@@ -148,7 +150,7 @@ export default function projectInfoModal(props) {
           <div className='Row'>
             <h3>Notes:</h3>
             <div className='Box'>
-              {notes.map(note => {
+              {notes.map((note) => {
                 if (note) {
                   return (
                     <div key={note._id}>
@@ -194,7 +196,7 @@ export default function projectInfoModal(props) {
 
                   // Should call the progress method to update the progress to 100% before calling load
                   // Setting computable to false switches the loading indicator to infinite mode
-                  request.upload.onprogress = e => {
+                  request.upload.onprogress = (e) => {
                     progress(e.lengthComputable, e.loaded, e.total);
                   };
 
@@ -221,9 +223,9 @@ export default function projectInfoModal(props) {
 
                       // Let FilePond know the request has been cancelled
                       abort();
-                    }
+                    },
                   };
-                }
+                },
               }}
               name='files'
               labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
@@ -233,14 +235,14 @@ export default function projectInfoModal(props) {
               style={{ marginLeft: '3px' }}
               name='newDocument'
               value={newDocument}
-              onChange={event => {
+              onChange={(event) => {
                 setNewDocument(event.target.value);
               }}
             >
               <option>...</option>
               <option value='signedContract'>Signed Contract</option>
-              <option value='permit'>Permit</option>
               <option value='plansets'>Plan Sets</option>
+              <option value='permit'>Permit</option>
               <option value='finalPermit'>Final Permit: Signed Off</option>
             </select>
             <button onClick={handleSubmit}>Submit</button>

@@ -1,0 +1,31 @@
+.contactCard {
+  width: 250px;
+  height: 300px;
+  background-color: #dfe6e9;
+  color: black;
+  margin: auto;
+  font-size: small;
+  margin-top: 10px;
+  box-shadow: black;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.lastName {
+  color: #e67e22;
+}
+
+.contactCard-header {
+  /* ideally, i want to implment street view api usage from google to get a streetview pic using the address and use that as the background for the customer/ or myabe the project or both */
+  background-image: url('https://media.istockphoto.com/photos/solar-panels-in-dim-light-picture-id1049388950?k=6&m=1049388950&s=612x612&w=0&h=d2Tvn3yh8EApUjPN1Y0IbcBlIThiWSJK7fh3ia2EFj4=');
+  height: 50%;
+  vertical-align: middle;
+  color: #dfe6e9;
+  align-items: center;
+}
+
+.contactCard-body {
+  height: 50%;
+}
