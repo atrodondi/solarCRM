@@ -22,6 +22,7 @@ module.exports = {
     db.customer
       .find({})
       .populate('notes')
+      .populate('activeProjects')
       .sort({ lastName: '1' })
       .then((dbResources) => res.json(dbResources))
       .catch((err) => res.status(422).json(err));
