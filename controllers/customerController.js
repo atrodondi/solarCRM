@@ -37,7 +37,8 @@ module.exports = {
         $or: [
           { lastName: { $regex: searchQuery, $options: 'i' } },
           { firstName: { $regex: searchQuery, $options: 'i' } },
-          { addressCity: { $regex: searchQuery, $options: 'i' } }, //partial text search so entire name isnt required to find a match, searches those keys, i.e. last name, first name or whatever you add,
+          { addressCity: { $regex: searchQuery, $options: 'i' } },
+          { addressStreet: { $regex: searchQuery, $options: 'i' } }, //partial text search so entire name isnt required to find a match, searches those keys, i.e. last name, first name or whatever you add,
         ],
       })
       .then((result) => {

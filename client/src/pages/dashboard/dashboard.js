@@ -140,6 +140,7 @@ export default function dashboard(props) {
                 zipcode={contact.addressZipcode}
                 phone={contact.phone}
                 email={contact.email}
+                contact={contact}
               />
             );
           } else if (contact.type === 'project') {
