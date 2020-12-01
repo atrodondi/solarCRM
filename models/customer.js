@@ -45,13 +45,13 @@ const customerSchema = new Schema({
   activeProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'ActiveProjects',
+      ref: 'Projects',
     },
   ],
   completedProjects: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'CompletedProjects',
+      ref: 'Projects',
     },
   ],
 });

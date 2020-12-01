@@ -3,9 +3,7 @@
   height: 300px;
   background-color: #dfe6e9;
   color: black;
-  margin: auto;
   font-size: small;
-  margin-top: 10px;
   box-shadow: black;
   justify-content: center;
   text-align: center;
@@ -24,8 +22,15 @@
   vertical-align: middle;
   color: #dfe6e9;
   align-items: center;
+  margin: none;
 }
 
 .contactCard-body {
   height: 50%;
+}
+
+#contactCard {
+  text-decoration: none;
+  margin: auto;
+  margin-top: 10px;
 }

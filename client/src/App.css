@@ -48,6 +48,5 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  /* background-color: rgba(0, 0, 0, 0.3); */
-  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqQ2koFsm7UGZ4Awa2e1wqhl1lwuOLStBJLA&usqp=CAU');
+  background-color: rgba(0, 0, 0, 0.3);
 }
