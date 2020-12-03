@@ -105,7 +105,7 @@ export default function addProjModal(props) {
   //render
   return props.showProjModal ? (
     <div className='modalWrapper'>
-      <div className='modal'>
+      <div className='modall'>
         <button className='closeButton' onClick={props.openProjModal}>
           &#10006;
         </button>

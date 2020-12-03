@@ -57,11 +57,11 @@ export default function projectInfoModal(props) {
   return props.showProjInfoModal ? (
     <>
       <div className='modalWrapper'>
-        <div className='Modal'>
+        <div className='Modall'>
           <button className='closeButton' onClick={props.openProjInfoModal}>
             &#10006;
           </button>
-          <div className='modalHeader'>
+          <div className='modallHeader'>
             <div style={{ display: 'block' }}>
               <p style={{ marginLeft: '5px' }}>
                 {props.projInfo.jobsiteAddress} , {props.projInfo.jobsiteCity}{' '}
@@ -151,7 +151,7 @@ export default function projectInfoModal(props) {
             <h3>Notes:</h3>
             <div className='Box'>
               {notes.map((note) => {
-                if (note) {
+                if (note._id) {
                   return (
                     <div key={note._id}>
                       <p>{note.note}</p>

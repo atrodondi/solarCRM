@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
-  type: { type: String, default: 'contact' },
+  type: { type: String, default: 'customer' },
   firstName: { type: String, required: true, index: true },
   lastName: { type: String, required: true, index: true },
   email: { type: String, index: { unique: true } },

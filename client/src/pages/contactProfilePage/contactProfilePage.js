@@ -1,6 +1,7 @@
 import React from 'react';
 import './contactProfilePage.css';
 import moment from 'moment';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 export default function contactProfilePage(props) {
   const customerData = props.location.state;
@@ -29,9 +30,7 @@ export default function contactProfilePage(props) {
               width: '100%',
             }}
           >
-            <div
-              style={{ width: '50%', backgroundColor: '#74b9ff', width: '50%' }}
-            >
+            <div style={{ width: '50%', backgroundColor: '#74b9ff' }}>
               <p>Phone: {customerData.phone}</p>
             </div>
             {/* phone */}
@@ -58,27 +57,43 @@ export default function contactProfilePage(props) {
       </div>
       <div id='contentContainer'>
         <div id='widgetBox'>
-          <div className='row'>
-            <div className='widget'>
-              1<div>PGE INFO</div>
+          <div className='widgetRow'>
+            <div className='widget pgeInfoBox'>
+              <div>
+                <strong>
+                  <p>PG&E Information</p>
+                </strong>
+                <ListGroup>
+                  <ListGroup.Item> Account #: 18273671621</ListGroup.Item>
+                  <ListGroup.Item>
+                    Electronic Service Id: 18273671687{' '}
+                  </ListGroup.Item>
+                  <ListGroup.Item>Meter # : 10087627256 </ListGroup.Item>
+                  <ListGroup.Item>Rate Schedule: E1</ListGroup.Item>
+                  <ListGroup.Item>Name on Account: Larry Crenna</ListGroup.Item>
+                </ListGroup>
+              </div>
             </div>
-            <div className='widget'>2</div>
+            <div className='widget'>2 - active projects</div>
           </div>
-          <div className='row'>
-            <div className='widget'>1</div>
-            <div className='widget'>2</div>
+          <div className='widgetRow'>
+            <div className='widget'>3 - equipment</div>
+            <div className='widget'>
+              5-completed projects? maybe something else and just have a
+              projects tab above and have it be active or completed
+            </div>
           </div>
         </div>
         <div className='notesBox'>
-          {customerData.notes.map((note) => {
-            return (
-              <div style={{ borderStyle: 'solid', borderColor: 'black' }}>
-                <p>
-                  {note.note} {moment(note.createdAt).format('MMM Do YYYY')}
-                </p>
-              </div>
-            );
-          })}
+          <ListGroup>
+            {customerData.notes.map((note) => {
+              return (
+                <ListGroup.Item>
+                  {note.note} {moment(note.createdAt).format('MMM Do YYYY')}{' '}
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
         </div>
       </div>
     </>
