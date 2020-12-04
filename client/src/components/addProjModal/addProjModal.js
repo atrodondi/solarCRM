@@ -35,6 +35,7 @@ export default function addProjModal(props) {
       jobsiteCity: NewProject.jobsiteCity,
       jobsiteZipcode: NewProject.jobsiteZipcode,
       jobsiteCounty: NewProject.jobsiteCounty,
+      description: NewProject.description,
       modules: {
         make: NewProject.moduleMake,
         model: NewProject.moduleModel,
@@ -287,10 +288,17 @@ export default function addProjModal(props) {
             </div>
           </form>
           <form>
-            <br />
-            <br />
-            <br />
             <div className='form-group'>
+              <label>Project Description:</label>
+              <br />
+              <input
+                type='text'
+                name='description'
+                value={NewProject.description}
+                autoComplete='off'
+                onChange={handleInputChange}
+              />
+              <br />
               <label>Module Make:</label>
               <br />
               <input
