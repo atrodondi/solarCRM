@@ -1,4 +1,4 @@
-.Modal {
+.Modall {
   width: 80%;
   height: 80%;
   background: rgb(247, 245, 245);
@@ -36,7 +36,7 @@ h5 {
   justify-content: center;
 }
 
-.modalHeader {
+.modallHeader {
   display: flex;
   text-align: center;
 }

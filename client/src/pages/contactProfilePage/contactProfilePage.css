@@ -18,13 +18,25 @@
 }
 
 .widget {
+  padding: 8px;
   width: 50%;
-  height: 50%;
-  background-color: red;
+  height: 100%;
+  border-color: red;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .row {
   display: flex;
+}
+
+.widgetRow {
+  display: flex;
+  height: 50%;
+  width: 100%;
 }
 
 .notesBox {
@@ -32,4 +44,9 @@
   height: 100vh;
   width: 20%;
   background-color: #95a5a6;
+  overflow-y: auto;
+}
+
+.activeProjCard {
+  margin-top: 20px;
 }

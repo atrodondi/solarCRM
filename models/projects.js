@@ -5,17 +5,18 @@ const projectsSchema = new Schema({
   documents: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Uploads'
-    }
+      ref: 'Uploads',
+    },
   ],
   changeOrders: [],
   ahjDocuments: [],
   type: { type: String, default: 'project' },
   client: {
     type: Schema.Types.ObjectId,
-    ref: 'Customer'
+    ref: 'Customer',
   },
   status: { type: String, default: 'Contract Signed' },
+  description: { type: String },
   contractSignDate: { type: String },
   contractTotal: { type: Number },
   deposit: { type: Number },
@@ -37,9 +38,9 @@ const projectsSchema = new Schema({
   notes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'ProjectNotes'
-    }
-  ]
+      ref: 'ProjectNotes',
+    },
+  ],
 });
 
 // projectsSchema.virtual('documentPath').get(() => {

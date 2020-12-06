@@ -64,6 +64,7 @@ export default function dashboard(props) {
   const getContacts = () => {
     setContent([]);
     API.findAllCustomers().then((res) => {
+      console.log(res.data);
       setContent(res.data);
     });
   };
