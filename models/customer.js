@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// need to change the schema so that projects is just one array, and then just change the schema in projects to have another status key that is either active or complete, or just two keys of active = true, complete = false, and such
+
 const customerSchema = new Schema({
-  type: { type: String, default: 'contact' },
+  type: { type: String, default: 'customer' },
   firstName: { type: String, required: true, index: true },
   lastName: { type: String, required: true, index: true },
   email: { type: String, index: { unique: true } },

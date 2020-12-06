@@ -15,8 +15,9 @@ module.exports = {
         );
       })
       .then((dbUser) => {
+        console.log(dbUser);
         if (dbUser) {
-          res.json({ message: 'Successful Customer Note Created' });
+          res.json(dbUser);
         }
       })
       .catch((err) => res.status(422).json(err));
