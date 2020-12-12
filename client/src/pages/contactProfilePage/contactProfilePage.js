@@ -5,13 +5,24 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import AddCustomerNoteModal from '../../components/addCustomerNoteModal/addCustomerNoteModal';
+import API from '../../util/API';
 
 export default function contactProfilePage(props) {
   // add new note modal
   const [addNoteShow, setAddNoteShow] = useState(false);
 
   //   getting customer information from the previous state  on the page
-  const customerData = props.location.state;
+
+  const [customerData, setCustData] = useState(props.location.state);
+
+  // handling deleting a customer note
+  const handleNoteDelete = (e) => {
+    let customerId = e.target.value;
+    console.log(customerId);
+
+    API.deleteCustNote(customerId).then((res) => console.log(res));
+  };
+
   return (
     <>
       <div style={{ height: '100%' }}>
@@ -166,7 +177,13 @@ export default function contactProfilePage(props) {
                         }}
                       >
                         <p>Done</p>
-                        <p>Delete</p>
+                        <Button
+                          variant='danger'
+                          value={note._id}
+                          onClick={handleNoteDelete}
+                        >
+                          Delete
+                        </Button>
                       </div>
                     </div>
                   </ListGroup.Item>
