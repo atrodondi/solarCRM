@@ -15,6 +15,27 @@ export default function contactProfilePage(props) {
 
   const [customerData, setCustData] = useState(props.location.state);
 
+  //   new note state
+  const [newNote, setNewNote] = useState('');
+
+  //   handle click of add note button
+  const handleAddNote = (e) => {
+    let note = {
+      note: newNote,
+      customer: e.target.value,
+    };
+    API.addCustNote(note).then((res) => {
+      console.log('response from adding customer note', res.data);
+      if (res.data) {
+        setCustData(res.data);
+        setNewNote('');
+        setAddNoteShow(false);
+      } else {
+        alert('Uhoh. Something went wrong!');
+      }
+    });
+  };
+
   // handling deleting a customer note
   const handleNoteDelete = (e) => {
     let customerId = e.target.value;
@@ -151,6 +172,10 @@ export default function contactProfilePage(props) {
                 + Add New Note
               </Button>
               <AddCustomerNoteModal
+                setNewNote={setNewNote}
+                newNote={newNote}
+                handleAddNote={handleAddNote}
+                className='mt-2'
                 customerdata={customerData}
                 onHide={() => setAddNoteShow(false)}
                 show={addNoteShow}

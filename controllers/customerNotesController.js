@@ -29,12 +29,11 @@ module.exports = {
   //deleting a customer note, and then returning the customer data to uopdate the state on the front end
   deleteCustNote: function (req, res) {
     let noteId = req.params.id;
-    console.log('PARAMS.ID--->>>', noteId);
 
     db.customerNotes
       .findByIdAndDelete(noteId)
       .then((dbNote) => {
-        console.log('DBNOTE customer--->>>', dbNote.customer);
+        // after deleting the note, need to delete the reference to the note in the customer, then return the new updated customer info populated with projects and notes
         return db.customer
           .findByIdAndUpdate(
             dbNote.customer,
@@ -49,7 +48,6 @@ module.exports = {
           .populate('notes');
       })
       .then((customerData) => {
-        console.log('CUSTOMER DATA BROSEPH----^^', customerData);
         if (customerData) {
           res.json(customerData);
         }
