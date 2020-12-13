@@ -20,7 +20,10 @@ export default function contactProfilePage(props) {
     let customerId = e.target.value;
     console.log(customerId);
 
-    API.deleteCustNote(customerId).then((res) => console.log(res));
+    API.deleteCustNote(customerId).then((res) => {
+      console.log(res.data);
+      setCustData(res.data);
+    });
   };
 
   return (
@@ -118,7 +121,7 @@ export default function contactProfilePage(props) {
                           </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                          <Button variant='primary' block>
+                          <Button variant='primary' block value={project._id}>
                             Project Info Page
                           </Button>
                         </Card.Footer>

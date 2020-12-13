@@ -8,11 +8,14 @@ module.exports = {
     db.customerNotes
       .create(req.body)
       .then((dbModel) => {
-        return db.customer.findOneAndUpdate(
-          { _id: custId },
-          { $push: { notes: dbModel._id } },
-          { new: true }
-        );
+        return db.customer
+          .findOneAndUpdate(
+            { _id: custId },
+            { $push: { notes: dbModel._id } },
+            { new: true }
+          )
+          .populate('activeProjects')
+          .populate('notes');
       })
       .then((dbUser) => {
         console.log(dbUser);
@@ -25,12 +28,25 @@ module.exports = {
 
   //deleting a customer note, and then returning the customer data to uopdate the state on the front end
   deleteCustNote: function (req, res) {
-    console.log('PARAMS.ID--->>>', req.params.id);
+    let noteId = req.params.id;
+    console.log('PARAMS.ID--->>>', noteId);
+
     db.customerNotes
-      .findByIdAndDelete(req.params.id)
+      .findByIdAndDelete(noteId)
       .then((dbNote) => {
         console.log('DBNOTE customer--->>>', dbNote.customer);
-        return db.customer.findOne({ _id: dbNote.customer }, { new: true });
+        return db.customer
+          .findByIdAndUpdate(
+            dbNote.customer,
+            {
+              $pull: {
+                notes: noteId,
+              },
+            },
+            { new: true }
+          )
+          .populate('activeProjects')
+          .populate('notes');
       })
       .then((customerData) => {
         console.log('CUSTOMER DATA BROSEPH----^^', customerData);

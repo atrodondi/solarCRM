@@ -26,8 +26,6 @@ export default function addCustomerNoteModal(props) {
     API.addCustNote(note).then((res) => {
       console.log('response from adding customer note', res.data);
       if (res.data) {
-        customerData.notes.concat(res.data.notes);
-
         setNewNote('');
         props.setaddnoteshow(false);
       } else {
