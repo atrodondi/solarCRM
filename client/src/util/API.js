@@ -21,6 +21,11 @@ export default {
     return axios.post('/customerNotes/createNewCustNote', note);
   },
 
+  // delete custoemr note
+  deleteCustNote: function (id) {
+    return axios.delete('/customerNotes/delete/' + id);
+  },
+
   // add new project
   addNewProject: function (newProj) {
     return axios.post('/project/createNew', newProj);
@@ -45,5 +50,5 @@ export default {
   // @ /uploads/fileType(ie. contract,permit,planset, etc/projId
   upload: function (file) {
     return axios.post('/uploads', file);
-  }
+  },
 };

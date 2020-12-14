@@ -5,13 +5,48 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import AddCustomerNoteModal from '../../components/addCustomerNoteModal/addCustomerNoteModal';
+import API from '../../util/API';
 
 export default function contactProfilePage(props) {
   // add new note modal
   const [addNoteShow, setAddNoteShow] = useState(false);
 
   //   getting customer information from the previous state  on the page
-  const customerData = props.location.state;
+
+  const [customerData, setCustData] = useState(props.location.state);
+
+  //   new note state
+  const [newNote, setNewNote] = useState('');
+
+  //   handle click of add note button
+  const handleAddNote = (e) => {
+    let note = {
+      note: newNote,
+      customer: e.target.value,
+    };
+    API.addCustNote(note).then((res) => {
+      console.log('response from adding customer note', res.data);
+      if (res.data) {
+        setCustData(res.data);
+        setNewNote('');
+        setAddNoteShow(false);
+      } else {
+        alert('Uhoh. Something went wrong!');
+      }
+    });
+  };
+
+  // handling deleting a customer note
+  const handleNoteDelete = (e) => {
+    let customerId = e.target.value;
+    console.log(customerId);
+
+    API.deleteCustNote(customerId).then((res) => {
+      console.log(res.data);
+      setCustData(res.data);
+    });
+  };
+
   return (
     <>
       <div style={{ height: '100%' }}>
@@ -107,7 +142,7 @@ export default function contactProfilePage(props) {
                           </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                          <Button variant='primary' block>
+                          <Button variant='primary' block value={project._id}>
                             Project Info Page
                           </Button>
                         </Card.Footer>
@@ -137,6 +172,10 @@ export default function contactProfilePage(props) {
                 + Add New Note
               </Button>
               <AddCustomerNoteModal
+                setNewNote={setNewNote}
+                newNote={newNote}
+                handleAddNote={handleAddNote}
+                className='mt-2'
                 customerdata={customerData}
                 onHide={() => setAddNoteShow(false)}
                 show={addNoteShow}
@@ -166,7 +205,13 @@ export default function contactProfilePage(props) {
                         }}
                       >
                         <p>Done</p>
-                        <p>Delete</p>
+                        <Button
+                          variant='danger'
+                          value={note._id}
+                          onClick={handleNoteDelete}
+                        >
+                          Delete
+                        </Button>
                       </div>
                     </div>
                   </ListGroup.Item>
