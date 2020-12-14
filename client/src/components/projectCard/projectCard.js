@@ -1,19 +1,29 @@
 import React from 'react';
 import './projectCard.css';
+import { Link } from 'react-router-dom';
 
 export default function projectCard(props) {
+  const projInfo = props.projInfo;
   return (
     <>
-      <div
-        className='projectCard'
-        id={props.id}
-        onClick={props.openProjInfoModal}
+      <Link
+        id='projectCard'
+        to={{
+          pathname: '/projectInfo',
+          state: projInfo,
+        }}
       >
-        <h2 className='project-name'>{props.lastName} Project</h2>
-        <p>
-          {props.address}, {props.city} CA {props.zipcode}
-        </p>
-      </div>
+        <div
+          className='projectCard'
+          id={props.id}
+          onClick={props.openProjInfoModal}
+        >
+          <h2 className='project-name'>{props.lastName} Project</h2>
+          <p>
+            {props.address}, {props.city} CA {props.zipcode}
+          </p>
+        </div>
+      </Link>
     </>
   );
 }

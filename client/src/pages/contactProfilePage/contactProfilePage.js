@@ -203,6 +203,7 @@ export default function contactProfilePage(props) {
                         style={{
                           width: '15%',
                         }}
+                        className='justify-content-between'
                       >
                         <p>Done</p>
                         <Button

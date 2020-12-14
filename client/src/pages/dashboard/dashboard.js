@@ -147,6 +147,7 @@ export default function dashboard(props) {
           } else if (contact.type === 'project') {
             return (
               <ProjectCard
+                projInfo={contact}
                 key={contact._id}
                 id={contact._id}
                 lastName={contact.client.lastName}
